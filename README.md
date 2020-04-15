@@ -18,5 +18,5 @@
 >对了，这个项目本来就是无聊开发的
 >可以查阅[作者的酷安主页](http://www.coolapk.com/u/1362352)
 >以及[作者的Github主页](https://github.com/NitroRCr)
->>README的作者不配拥有姓名吗（[Github](https://github.com/2878444090/)
+>>
 usage懒得写了。。。你写吧
