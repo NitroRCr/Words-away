@@ -1,0 +1,27 @@
+body {
+    color: #555;
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+a:link {
+    color: #7e57c2;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+}
+
+@media screen and (orientation: landscape) {
+    .container {
+        width: 70%;
+    }
+}
+
+@media (min-width: 1600px) and (orientation: landscape) {
+    .container {
+        width: 50%;
+    }
+}
