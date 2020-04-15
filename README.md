@@ -8,6 +8,10 @@
 + （可选）（默认选中）规避中括号：遇到中括号时不进行反转，以避免表情符号出现Bug。
 ## 隐私：
 基于JavaScript的网页实现，不会将数据传到服务器~可以放心使用
+## 已实现的功能：
++ [x] 增强模式
++ [ ] 自动判断链接并绕行
++ [ ] ？
 ## 使用：
 + 可以在[Release页面](https://github.com)（暂未发布）下载最新的本地部署版本，可以部署到服务器或离线使用。
 + 可以使用 [在线demo](https://blog.texice.xyz/demo/textmix)
@@ -15,3 +19,4 @@
 >可以查阅[作者的酷安主页](http://www.coolapk.com/u/1362352)
 >以及[作者的Github主页](https://github.com/NitroRCr)
 >>README的作者不配拥有姓名吗（[Github](https://github.com/2878444090/)
+usage懒得写了。。。你写吧
