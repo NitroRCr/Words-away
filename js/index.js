@@ -1,11 +1,11 @@
 $('.start-mixin').click(function () {
-    console.time();
     var text = $('#textin').val();
     var mixin = '\u200b';
     var result = '';
     var inBrackets = false;
     var missBrackets = $('#miss-brackets')[0].checked;
     if (missBrackets) {
+        text = text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g, '[$1]');
         for (let i in text) {
             let x = text[i];
             if (inBrackets) {
@@ -62,9 +62,11 @@ $('.start-mixin').click(function () {
             result += newRow;
         }
     }
+    if (missBrackets) {
+        result = result.replace(/\[(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\]/g, '$1');
+    }
     $('pre.result').text(result);
     $('.to-copy').attr('data-clipboard-text', result);
-    console.timeEnd();
 })
 new ClipboardJS('.to-copy');
 $('.to-copy').click(function () {
