@@ -21,9 +21,9 @@
 + [ ] 自动判断链接并绕行
 + [ ] ？
 ## 已知的问题：
-用双重反转模式处理之后，当一行文本（即不含换行符）以多行的形式显示时，那几行的顺序会反转，[详见这里](https://blog.texice.xyz/2020/Anti-Text-Detect/#%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98)
+用双重反转模式处理之后，当一行文本（即不含换行符）以多行的形式显示时，那几行的顺序会反转，[详见这里](https://blog.texice.xyz/2020/Anti-Text-Detect/#%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98)。暂时无法解决
 ## 使用：
-+ 可以使用 [在线网页](https://wordsaway.netlify.app/)
++ 可以使用 [在线网页](https://wordsaway.texice.xyz/)
 + 可以在[Release页面](https://github.com)（暂未发布）下载最新的本地部署版本，可以部署到服务器或离线使用。
 1. 打开网页
 2. 输入或粘贴需要处理的文本
