@@ -66,7 +66,7 @@ WordsAway.prototype.turnOver = function (text, missBrackets = true) {
     }
     return result;
 }
-WordsAway.prototype.wordsReverse = function(text, missBrackets = true) {
+WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
     var rows = text.split('\n');
     var result = '';
     for (let i in rows) {
@@ -75,21 +75,28 @@ WordsAway.prototype.wordsReverse = function(text, missBrackets = true) {
         let before;
         let newRow = '';
         for (let j = 0; j < x.length; j += 3) {
-            for (let k = j; k < j + 3; k++) {
-                let z = x[k];
-                if (z == '[' && missBrackets) {
-                    before = k;
-                    inBrackets = true;
-                } else if (z == ']' && missBrackets) {
-                    newRow += y.slice(before, k);
-                    inBrackets = false;
-                }
+            let y = x.slice(j, j + 3);
+            let hasBrackets = false;
+            if (y.indexOf('[') != -1) {
+                inBrackets = true;
+                hasBrackets = true;
             }
-            if (!inBrackets) {
-                newRow += x[j] + '\u202e' + x.slice(j+1, j+3) + '\u202c';
+            if (y.indexOf(']') != -1) {
+                inBrackets = false;
+                hasBrackets = true;
+            }
+            if (inBrackets | hasBrackets) {
+                newRow += y;
+            } else {
+                newRow += x[j] + '\u202e' +
+                    ((x[j + 2] !== undefined) ? x[j + 2] : '') +
+                    ((x[j + 1] !== undefined) ? x[j + 1] : '') +
+                    '\u202c';
             }
         }
+        result += newRow + '\n';
     }
+    return result;
 }
 
 var wordsAway = new WordsAway();
