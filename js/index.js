@@ -75,7 +75,7 @@ WordsAway.prototype.wordsReverse = function(text, missBrackets = true) {
         let before;
         let newRow = '';
         for (let j = 0; j < x.length; j += 3) {
-            for (let k = j; k < j + 3, k++) {
+            for (let k = j; k < j + 3; k++) {
                 let z = x[k];
                 if (z == '[' && missBrackets) {
                     before = k;
