@@ -25,9 +25,9 @@ WordsAway.prototype.mixin = function (text, mixin = '\u200b', missBrackets = tru
 }
 WordsAway.prototype.turnOver = function (text, missBrackets = true) {
     var rows = text.split('\n');
-    result = '';
+    var result = '';
     for (let i in rows) {
-        inBrackets = false;
+        let inBrackets = false;
         let before;
         let x = rows[i];
         let newRow = '';
@@ -57,10 +57,39 @@ WordsAway.prototype.turnOver = function (text, missBrackets = true) {
                     newRow;
             }
         }
+        if (inBrackets && missBrackets) {
+            inBrackets = false;
+            newRow = x.slice(before, x.length + 1) + newRow;
+        }
         newRow = '\u202e' + newRow + '\n';
         result += newRow;
     }
     return result;
+}
+WordsAway.prototype.wordsReverse = function(text, missBrackets = true) {
+    var rows = text.split('\n');
+    var result = '';
+    for (let i in rows) {
+        let inBrackets = false;
+        let x = rows[i];
+        let before;
+        let newRow = '';
+        for (let j = 0; j < x.length; j += 3) {
+            for (let k = j; k < j + 3, k++) {
+                let z = x[k];
+                if (z == '[' && missBrackets) {
+                    before = k;
+                    inBrackets = true;
+                } else if (z == ']' && missBrackets) {
+                    newRow += y.slice(before, k);
+                    inBrackets = false;
+                }
+            }
+            if (!inBrackets) {
+                newRow += x[j] + '\u202e' + x.slice(j+1, j+3) + '\u202c';
+            }
+        }
+    }
 }
 
 var wordsAway = new WordsAway();
