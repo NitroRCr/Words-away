@@ -1,4 +1,4 @@
-function WordsAway() {}
+ function WordsAway() {}
 WordsAway.prototype.mixin = function (text, mixin = '\u200b', missBrackets = true) {
     var result = '';
     var inBrackets = false;
@@ -74,7 +74,7 @@ WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
             if (inBrackets | hasBrackets) {
                 newRow += y;
             } else {
-                newRow += x[j] + '\u202e' +
+                newRow += '\u200e' + x[j] + '\u202e' +
                     ((x[j + 2] !== undefined) ? this.toggleBracketsChar(x[j + 2]) : '') +
                     ((x[j + 1] !== undefined) ? this.toggleBracketsChar(x[j + 1]) : '') +
                     '\u202c';
@@ -85,10 +85,11 @@ WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
     return result;
 }
 WordsAway.prototype.toggleBrackets = function (text) {
+    result = '';
     for (let i in text) {
-        text[i] = this.toggleBracketsChar(text[i]);
+        result += this.toggleBracketsChar(text[i]);
     }
-    return text;
+    return result;
 }
 WordsAway.prototype.toggleBracketsChar = function (char) {
     return (char == '(') ? ')' :
@@ -140,6 +141,11 @@ $('#words-reverse').click(function () {
     if ($(this)[0].checked) {
         $('#rows-reverse')[0].checked = false;
         $('#zero-width-space')[0].checked = false;
+    }
+})
+$('#zero-width-space').click(function () {
+    if ($(this)[0].checked) {
+        $('#words-reverse')[0].checked = false;
     }
 })
 
