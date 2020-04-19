@@ -9,6 +9,11 @@ a {
     color: #7e57c2;
 }
 
+h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
 .container {
     width: 90%;
     margin: auto;
