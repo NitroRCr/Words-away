@@ -29,20 +29,28 @@
         <div class="row">
             <form class="col s12">
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 text-in">
                         <textarea id="textin" class="materialize-textarea"></textarea>
                         <label for="textin">输入文本</label>
                     </div>
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 checkboxs">
                         <div class="switch">
                             <label>
                                 <input type="checkbox" class="filled-in" checked="checked" id="miss-brackets" />
-                                <span>避开中括号和链接</span>
+                                <span>避开链接和中括号</span>
                             </label><br>
                             <label>
-                                <input type="checkbox" class="filled-in" id="twice-turn-over" />
-                                <span>双重反转模式</span>
-                            </label>
+                                <input type="checkbox" class="filled-in" id="zero-width-space" checked="checked" />
+                                <span>零宽间隔（普通）</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="rows-reverse" />
+                                <span>每行双重反转（增强）</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="words-reverse" />
+                                <span>每两字双重反转（增强）</span>
+                            </label><br>
                         </div>
                         <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">处理</a>
                     </div>
