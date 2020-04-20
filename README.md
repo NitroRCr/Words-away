@@ -6,9 +6,8 @@
 
 ## 原理：
 + 普通模式：在相隔的两个字符之间插入Unicode零宽间隔符（[U+200B](https://unicode.org/cldr/utility/character.jsp?a=200B)）以规避检测。
-
-+ （可选）增强的双重反转模式：将一行内所有文字顺序反转（物理）再加入Unicode反转控制符([U+202E](https://unicode.org/cldr/utility/character.jsp?a=202E))从而实现增强的规避检测。
-
++ （可选）增强的每行双重反转模式：将一行内所有文字顺序反转（物理）再加入Unicode反转控制符([U+202E](https://unicode.org/cldr/utility/character.jsp?a=202E))从而实现增强的规避检测。
++ （可选）每两字反转模式：另一种增强模式，这里不作过多解释~~（其实是懒）~~
 + （可选）（默认选中）规避中括号和链接：遇到中括号和链接时不进行处理，以兼容表情符号和链接。
 
 关于原理的详细说明，可以参考[这篇文章](https://blog.texice.xyz/2020/Anti-Text-Detect/)。
@@ -21,7 +20,8 @@
 + [x] 自动判断链接并绕行
 + [ ] ~~多♂插♂几个空白符（逃）~~
 ## 已知的问题：
-+ 用双重反转模式处理之后，当一行文本（即不含换行符）以多行的形式显示时，那几行的顺序会反转，[详见这里](https://blog.texice.xyz/2020/Anti-Text-Detect/#%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98)。暂时无法解决
++ 用每行双重反转模式处理之后，当一行文本以多行的形式显示时，那几行的顺序会反转，[详见这里](https://blog.texice.xyz/2020/Anti-Text-Detect/#%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98)。暂时无法解决
++ 用每两字双重反转模式处理之后，当一行文本以多行的形式显示时，有三分之一的概率 上一行的最后一字与下一行的第一个字位置交换。暂时无法解决
 ## 使用：
 + 可以使用 [在线网页](https://wordsaway.texice.xyz/)
 + 可以在[Release页面](https://github.com/NitroRCr/Words-away/releases)下载最新的离线版本
