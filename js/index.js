@@ -178,10 +178,15 @@ $('#zero-width-space').click(function () {
 })
 $('#vertical-text').click(function () {
     if ($(this)[0].checked) {
-        $('#rows-reverse')[0].checked = false;
-        $('#zero-width-space')[0].checked = false;
-        $('#words-reverse')[0].checked = false;
-        $('#miss-brackets')[0].checked = false;
+        $('#rows-reverse').attr('disabled', 'disabled')[0].checked = false;
+        $('#zero-width-space').attr('disabled', 'disabled')[0].checked = false;
+        $('#words-reverse').attr('disabled', 'disabled')[0].checked = false;
+        $('#miss-brackets').attr('disabled', 'disabled')[0].checked = false;
+    } else {
+        $('#rows-reverse').removeAttr('disabled');
+        $('#zero-width-space').removeAttr('disabled')[0].checked = true;
+        $('#words-reverse').removeAttr('disabled');
+        $('#miss-brackets').removeAttr('disabled')[0].checked = true;
     }
 })
 
