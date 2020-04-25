@@ -8,6 +8,7 @@
 + 普通模式：在相隔的两个字符之间插入Unicode零宽间隔符（[U+200B](https://unicode.org/cldr/utility/character.jsp?a=200B)）以规避检测。
 + （可选）增强的每行双重反转模式：将一行内所有文字顺序反转（物理）再加入Unicode反转控制符([U+202E](https://unicode.org/cldr/utility/character.jsp?a=202E))从而实现增强的规避检测。
 + （可选）每两字反转模式：另一种增强模式，这里不作过多解释~~（其实是懒）~~
++ （可选）转为竖向排列：纯“物理”的处理方法，不使用`Unicode`控制符，仅把文本转为竖向排列。
 + （可选）（默认选中）规避中括号和链接：遇到中括号和链接时不进行处理，以兼容表情符号和链接。
 
 关于原理的详细说明，可以参考[这篇文章](https://blog.texice.xyz/2020/Anti-Text-Detect/)。
