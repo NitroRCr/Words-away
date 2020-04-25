@@ -107,8 +107,7 @@ WordsAway.prototype.toggleBracketsChar = function (char) {
         char;
 }
 WordsAway.prototype.verticalText = function (text, maxCol = 12, minHeight = 10) {
-    text = text.replace(/[\n\r]/g, '');
-    console.log(text);
+    text = text.replace(/[\n\r\s]/g, '');
     var rowNum = Math.ceil(Math.max(text.length / maxCol, minHeight));
     var rows = [];
     for (let i = 0; i < rowNum; i++) {
