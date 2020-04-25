@@ -30,9 +30,17 @@
         <p>
             另一种增强模式，缺陷是当一行文本以多行的形式显示时，有三分之一的概率 上一行的最后一字与下一行的第一个字位置交换，这里不作过多解释。
         </p>
+        <h3>转为竖向排列</h3>
+        <p>
+            纯“物理”的处理方法，不使用Unicode控制符，仅把文本转为竖向排列。<br>
+            当处理后的文本超过一列时，这个方法的防检测效果最好（相较于以上几种方法）<br>
+            这个方法仅兼容中文或其他等宽字符，否则会错位。
+        </p>
+        <h3>避开中括号和链接</h3>
+        <p>不对中括号里的内容和http链接进行处理。以兼容酷安表情和防止处理之后链接打不开</p>
         <h3>使用须知 &amp; 免责声明</h3>
         <ul style="list-style-type: disc;">
-            <li>此工具仅用作避免关键词的误屏蔽，提高文本安全性。</li>
+            <li>用途：防止误屏蔽 / 防爬虫 / 防复制 / 防机器检测</li>
             <li>禁止用于传播不良信息。使用不当造成不良后果概不负责。</li>
             <li>无法避开所有的关键词检测</li>
             <li>能避免机器检测，但对人无效</li>
@@ -40,7 +48,6 @@
             (酷安小编本人说过用Unicode控制符发送严重违规消息直接永封不解。)
             <li>某些模式不能共存</li>
             <li>一段文本不可多次处理，处理后的文本暂无法直接还原。</li>
-            <li>详细说明在页面下方（有时间我再好好重新写下<i class="c-shounuehuaji"></i>）</li>
         </ul>
         <div class="row">
             <form class="col s12">
@@ -67,6 +74,10 @@
                                 <input type="checkbox" class="filled-in" id="words-reverse" />
                                 <span>每两字双重反转（增强）</span>
                             </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="vertical-text" />
+                                <span>转为竖向排列（物理）</span>
+                            </label><br>
                         </div>
                         <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">处理</a>
                     </div>
@@ -83,29 +94,6 @@
             <a href="https://github.com/NitroRCr/Words-away">Github 项目地址</a>
         </p>
         <div style="height: 50px;"></div>
-        <h3 style="font-size: 1.5em; font-weight: bold;">详细说明</h3>
-        <p>
-            最近酷安的关键词误屏蔽有点多<i class="c-shounuehuaji"></i>，这个工具或许有用<br>
-            其实就是一个简单的字符串处理，处理之后，看上去文本没有任何变化，但实际上<i class="c-coshuaji"></i>：<br>
-        </p>
-        <p>
-            普通模式会在每两个字符之间，插♂入一个 零间距符 (U+200B)，这个符号看不见，但确确实实存在。<br>
-            这足以避开一部分关键词检测，如“ghs”，“测试”等。<br>
-            <br>
-            “双重反转模式” 可视为一种加强的混淆方式。勾选它时，会将每行文字反转，然后在每行开头加上一个 强制从右至左符 (U+202E)。效果是看上去文字正常，但实际上已经反转。<br>
-            大部分关键词都可以用这个模式避开，比如：<br>
-            "gcd"无法直接发出，插入 零间距符 后，仍然无法发出。但双重反转之后，相当于"dcg"，就可以发出了。<br>
-            但缺陷是当一行文本（即不含换行符）以多行形式显示时，这几行的显示顺序会混乱，因此使用此模式建议每行尽量短。<br>
-            另外，由于反转显示问题，此模式会自动将左右 大中小括号 互换 以正常显示。<br>
-            <br>
-            并不能避开所有的关键词<br>
-            <br>
-            “避开中括号” 用于兼容酷安表情，处理时它会避开中括号以内的内容。也可以把不想混淆的文字放在中括号内<br>
-            <br>
-            当“双重反转模式”和“避开中括号”同时被勾选时，中括号里的内容看起来会是反转的，但这不影响酷安表情包的正常显示<br>
-            <br>
-            <span>有关原理及实现的详细说明，可以看<a href="https://blog.texice.xyz/2020/Anti-Text-Detect/">这篇文章</a></span>
-        </p>
     </div>
     <div style="height: 100px;"></div>
     <script src="https://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>

@@ -25,7 +25,7 @@ h3 {
     }
 }
 
-@media (min-width: 1600px) and (orientation: landscape) {
+@media (min-width: 1500px) and (orientation: landscape) {
     .container {
         width: 50%;
     }

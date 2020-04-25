@@ -1,4 +1,4 @@
- function WordsAway() {}
+function WordsAway() {}
 WordsAway.prototype.mixin = function (text, mixin = '\u200b', missBrackets = true) {
     var result = '';
     var inBrackets = false;
@@ -106,6 +106,23 @@ WordsAway.prototype.toggleBracketsChar = function (char) {
         (char == '】') ? '【' :
         char;
 }
+WordsAway.prototype.verticalText = function (text, maxCol = 12, minHeight = 10) {
+    text = text.replace(/[\n\r]/g, '');
+    console.log(text);
+    var rowNum = Math.ceil(Math.max(text.length / maxCol, minHeight));
+    var rows = [];
+    for (let i = 0; i < rowNum; i++) {
+        rows[i] = '';
+    }
+    for (let i in text) {
+        rows[i % rowNum] += text[i] + ' ';
+    }
+    result = '';
+    for (let i in rows) {
+        result += rows[i] + '\n';
+    }
+    return result;
+}
 
 var wordsAway = new WordsAway();
 
@@ -128,24 +145,48 @@ $('.start-mixin').click(function () {
     text = ($('#zero-width-space')[0].checked) ?
         wordsAway.mixin(text, mixin, missBrackets) :
         text;
+    text = ($('#vertical-text')[0].checked) ?
+        wordsAway.verticalText(text) :
+        text;
     $('pre.result').text(text);
     $('.to-copy').attr('data-clipboard-text', text);
 })
 
+$('#miss-brackets').click(function () {
+    if ($(this)[0].checked) {
+        $('#vertical-text')[0].checked = false;
+    }
+})
 $('#rows-reverse').click(function () {
     if ($(this)[0].checked) {
         $('#words-reverse')[0].checked = false;
+        $('#vertical-text')[0].checked = false;
     }
 })
 $('#words-reverse').click(function () {
     if ($(this)[0].checked) {
         $('#rows-reverse')[0].checked = false;
         $('#zero-width-space')[0].checked = false;
+        $('#vertical-text')[0].checked = false;
     }
 })
 $('#zero-width-space').click(function () {
     if ($(this)[0].checked) {
         $('#words-reverse')[0].checked = false;
+        $('#vertical-text')[0].checked = false;
+    }
+})
+$('#vertical-text').click(function () {
+    if ($(this)[0].checked) {
+        $('#rows-reverse').attr('disabled', 'disabled')[0].checked = false;
+        $('#zero-width-space').attr('disabled', 'disabled')[0].checked = false;
+        $('#words-reverse').attr('disabled', 'disabled')[0].checked = false;
+        $('#miss-brackets').attr('disabled', 'disabled')[0].checked = false;
+    } else {
+        $('#rows-reverse').removeAttr('disabled');
+        $('#zero-width-space').removeAttr('disabled')[0].checked = true;
+        $('#words-reverse').removeAttr('disabled');
+        $('#miss-brackets').removeAttr('disabled')[0].checked = true;
     }
 })
 
