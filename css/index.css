@@ -38,3 +38,7 @@ h3 {
 .checkboxs {
     margin-top: 0;
 }
+
+.input-field.hidden {
+    display: none;
+}
