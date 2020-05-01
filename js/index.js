@@ -145,7 +145,7 @@ $('.start-mixin').click(function () {
         wordsAway.mixin(text, mixin, missBrackets) :
         text;
     text = ($('#vertical-text')[0].checked) ?
-        wordsAway.verticalText(text) :
+        wordsAway.verticalText(text, parseInt($('#max-col').val()), parseInt($('#min-row').val())) :
         text;
     $('pre.result').text(text);
     $('.to-copy').attr('data-clipboard-text', text);
@@ -181,11 +181,13 @@ $('#vertical-text').click(function () {
         $('#zero-width-space').attr('disabled', 'disabled')[0].checked = false;
         $('#words-reverse').attr('disabled', 'disabled')[0].checked = false;
         $('#miss-brackets').attr('disabled', 'disabled')[0].checked = false;
+        $('.input-field.hidden').css('display', 'inline-block');
     } else {
         $('#rows-reverse').removeAttr('disabled');
         $('#zero-width-space').removeAttr('disabled')[0].checked = true;
         $('#words-reverse').removeAttr('disabled');
         $('#miss-brackets').removeAttr('disabled')[0].checked = true;
+        $('.input-field.hidden').css('display', 'none');
     }
 })
 
