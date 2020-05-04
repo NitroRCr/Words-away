@@ -1167,7 +1167,6 @@ OneText.prototype.set = function (first = false) {
     var one = (first) ?
         OneText.libs['official'].get() :
         lib.get();
-    console.log(lib);
     this.tag.animate({
         opacity: 0
     }, (first) ? 0 : 500, () => {

@@ -102,6 +102,7 @@ function Index() {
         'img/dark-mobile-compressed/10.jpg',
         'img/dark-mobile-compressed/12.jpg',
         'img/dark-mobile-compressed/13.jpg',
+        'img/dark-mobile-compressed/14.jpg',
         'img/dark-mobile-compressed/a.jpg',
         'img/dark-mobile-compressed/b.jpg',
         'img/dark-mobile-compressed/c.jpg',
@@ -128,7 +129,7 @@ Index.prototype.setRandomBg = function () {
         }
         img.src = this.randint(bgs);
     }
-    setTimeout(() => {this.setRandomBg()}, 8 * 1000);
+    setTimeout(() => {this.setRandomBg()}, 20 * 1000);
 }
 $().ready(function () {
     var index = new Index();
