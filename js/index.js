@@ -89,7 +89,6 @@ function Index() {
         'img/dark-PC-compressed/12.jpg',
     ]
     this.portBgs = [
-        'img/dark-mobile-compressed/0.jpg',
         'img/dark-mobile-compressed/1.jpg',
         'img/dark-mobile-compressed/2.jpg',
         'img/dark-mobile-compressed/3.jpg',
