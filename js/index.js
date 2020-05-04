@@ -85,10 +85,11 @@ function Index() {
         'img/dark-PC-compressed/8.jpg',
         'img/dark-PC-compressed/9.jpg',
         'img/dark-PC-compressed/10.jpg',
+        'img/dark-PC-compressed/11.jpg',
         'img/dark-PC-compressed/12.jpg',
     ]
     this.portBgs = [
-        'img/dark-PC-compressed/0.jpg',
+        'img/dark-mobile-compressed/0.jpg',
         'img/dark-mobile-compressed/1.jpg',
         'img/dark-mobile-compressed/2.jpg',
         'img/dark-mobile-compressed/3.jpg',
@@ -99,6 +100,7 @@ function Index() {
         'img/dark-mobile-compressed/8.jpg',
         'img/dark-mobile-compressed/9.jpg',
         'img/dark-mobile-compressed/10.jpg',
+        'img/dark-mobile-compressed/11.jpg',
         'img/dark-mobile-compressed/12.jpg',
         'img/dark-mobile-compressed/13.jpg',
         'img/dark-mobile-compressed/14.jpg',

@@ -105,7 +105,7 @@ h3 {
           background-position: center;
           height: calc((100% - 100vh)/3 + 100vh);
           transition: background 1s ease;
-          filter: brightness(80%);
+          filter: brightness(75%);
           background-image: url(../img/dark-mobile-compressed/port-black.png); }
           @media screen and (orientation: landscape) {
             .parallax-stage .main > .row .bg-container .background .container,
