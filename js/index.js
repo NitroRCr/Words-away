@@ -115,15 +115,12 @@ Index.prototype.randint = function (obj) {
 }
 Index.prototype.setRandomBg = function () {
     var tag = $('.main .background');
-    console.log(tag);
     var bgs = (innerHeight > innerWidth) ?
         this.portBgs :
         this.landBgs;
     for (let i = 0; i < tag.length; i++) {
-        console.log($(tag[i]));
         let img = new Image();
         img.onload = function() {
-            console.log('onload');
             $(tag[i]).css('background-image', 'url(' + img.src +')');
         }
         img.src = this.randint(bgs);
