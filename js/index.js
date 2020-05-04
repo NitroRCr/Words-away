@@ -133,7 +133,5 @@ Index.prototype.setRandomBg = function () {
 $().ready(function () {
     var index = new Index();
     index.setRandomBg();
+    new OneText('.one-text-a', {interval: 15, libs: ['official', 'ext']})
 });
-onchange = function() {
-    
-}
