@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>文本防检测 - Text Anti-detection | Words-away</title>
+    <link rel="icon" href="https://coolemotion.netlify.com/source/png/c-shounuehuaji.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" href="css/materialize-n.min.css">
+    <link rel="stylesheet" href="css/simple.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="font-weight: bold; font-size: 2em">文本防检测 | Words-away</h1>
+        <p style="line-height: 2;">
+            一个文本处理工具，可用于避免酷安的关键词误屏蔽<i class="c-shounuehuaji"></i><br>
+            以下是说明：
+        </p>
+        <h3>零宽间隔模式</h3>
+        <p>
+            可视为普通模式，会在每两个字符之间插♂入一个 零宽间隔符 (<a href="https://unicode-table.com/cn/200B/">U+200B</a>)。<br>
+            处理之后文本看上去没有变化，实际上每个字都被间隔开了，可以避开一般的关键词检测。<br>
+        </p>
+        <h3>每行双重反转</h3>
+        <p>
+            可视为一种增强模式，会将每行文字反转，然后在每行开头加上一个 强制从右至左符 (<a href="https://unicode-table.com/cn/202E/">U+202E</a>可以避开更多的关键词检测<i class="c-coshuaji"></i><br>
+            但这个模式的缺陷是当一行文本（即不含换行符）以多行形式显示时，这几行的显示顺序会混乱。<br>
+        </p>
+        <h3>每两字双重反转</h3>
+        <p>
+            另一种增强模式，缺陷是当一行文本以多行的形式显示时，有三分之一的概率 上一行的最后一字与下一行的第一个字位置交换，这里不作过多解释。
+        </p>
+        <h3>转为竖向排列</h3>
+        <p>
+            纯“物理”的处理方法，不使用Unicode控制符，仅把文本转为竖向排列。<br>
+            当处理后的文本超过一列时，这个方法的防检测效果最好（相较于以上几种方法）<br>
+            这个方法仅兼容中文或其他等宽字符，否则会错位。<br>
+            会自动去掉空格和换行符。
+        </p>
+        <h3>避开中括号和链接</h3>
+        <p>不对中括号里的内容和http链接进行处理。以兼容酷安表情和防止处理之后链接打不开</p>
+        <h3>使用须知 &amp; 免责声明</h3>
+        <ul style="list-style-type: disc;">
+            <li>用途：防止误屏蔽 / 防爬虫 / 防复制 / 防机器检测</li>
+            <li>禁止用于传播不良信息。使用不当造成不良后果概不负责。</li>
+            <li>无法避开所有的关键词检测</li>
+            <li>能避免机器检测，但对人无效</li>
+            <li>nhml警告<i class="c-shounuehuaji"></i></li>
+            (酷安小编本人说过用Unicode控制符发送严重违规消息直接永封不解。)
+            <li>某些模式不能共存</li>
+            <li>一段文本不可多次处理，处理后的文本暂无法直接还原。</li>
+        </ul>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12 text-in">
+                        <textarea id="textin" class="materialize-textarea"></textarea>
+                        <label for="textin">输入文本</label>
+                    </div>
+                    <div class="input-field col s6 inline hidden">
+                        <input id="max-col" type="text" value="12">
+                        <label for="max-col">最大列数</label>
+                    </div>
+                    <div class="input-field col s6 inline hidden">
+                        <input id="min-row" type="text" value="5">
+                        <label for="min-row">最小行数</label>
+                    </div>
+                    <div class="input-field col s12 checkboxs">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" class="filled-in" checked="checked" id="miss-brackets" />
+                                <span>避开链接和中括号</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="zero-width-space" checked="checked" />
+                                <span>零宽间隔（普通）</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="rows-reverse" />
+                                <span>每行双重反转（增强）</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="words-reverse" />
+                                <span>每两字双重反转（增强）</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="vertical-text" />
+                                <span>转为竖向排列（物理）</span>
+                            </label><br>
+                        </div>
+                        <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">处理</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="height: 100px"></div>
+        <p style="font-weight: bold">处理结果：</p>
+        <pre class="result">请先处理<i class="c-shounuehuaji"></i>
+</pre>
+        <button data-clipboard-text="请先处理" class="waves-effect waves-light btn-small to-copy">复制</button>
+        <div style="height: 100px"></div>
+        <p>
+            <a href="https://github.com/NitroRCr/Words-away">Github 项目地址</a>
+        </p>
+        <div style="height: 50px;"></div>
+    </div>
+    <div style="height: 100px;"></div>
+    <script src="https://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/Words-away.js"></script>
+    <script src="js/simple.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://coolemotion.netlify.com/png-edition/coolapk-emotion-png.min.js"></script>
+</body>

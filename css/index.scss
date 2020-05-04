@@ -1,0 +1,186 @@
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialicons/v50/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+body,
+pre {
+    color: #555;
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+a {
+    color: #7e57c2;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+}
+
+@media screen and (orientation: landscape) {
+    .container {
+        width: 70%;
+    }
+}
+
+@media (min-width: 1500px) and (orientation: landscape) {
+    .container {
+        width: 50%;
+    }
+}
+
+.text-in {
+    margin-bottom: 0;
+}
+
+.checkboxs {
+    margin-top: 0;
+}
+
+.input-field.hidden {
+    display: none;
+}
+
+.parallax-stage {
+    scroll-behavior: smooth;
+    perspective: 1px;
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .main {
+        position: relative;
+        transform-style: preserve-3d;
+        padding: 0;
+
+        >.row,
+        .route {
+            position: relative;
+            margin: 0;
+            overflow: hidden;
+            display: block;
+
+            .container {
+                &.dark {
+                    color: #fff;
+
+                    .head {
+                        color: #fff;
+                    }
+                }
+
+                &.n-light {
+                    color: #555;
+                    padding: 20px 0;
+                }
+
+                font-size: 15px;
+            }
+
+            .bg-container {
+                transform-style: preserve-3d;
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                z-index: -2;
+
+                .background {
+                    position: absolute;
+                    margin: 0;
+                    transition: background 0.8s ease;
+                    transform: translate3d(-2vw, -100vh, -2px) scale(3.1);
+                    transform-origin: top;
+                    width: 100%;
+                    background-size: cover;
+                    background-position: center;
+                    height: calc((100% - 100vh)/3 + 100vh);
+                    transition: background 1s ease;
+                    filter: brightness(80%);
+                    background-image: url(../img/dark-mobile-compressed/port-black.png);
+                    @media screen and (orientation: landscape) {
+                        .container {
+                            background-image: url(../img/dark-PC-compressed/land-black.png);
+                        }
+                    }
+                }
+            }
+
+            &.row1 {
+                min-height: 100vh;
+            }
+
+            &.row3 {}
+        }
+    }
+
+    div.head {
+        font-weight: bold;
+        font-size: 2em;
+        color: #555;
+        line-height: 1.7;
+        margin: 5px 0;
+    }
+}
+
+a.n-dark {
+    color: white;
+    padding: 5px 7px;
+    border: 1.5px solid white;
+    border-radius: 2px;
+    margin-right: 25px;
+}
+
+footer {
+    height: 8em;
+    width: 100%;
+
+    > div {
+        margin-top: 2.5em;
+        color: #777;
+        font-weight: bold;
+
+        a {
+            :hover {
+                color: #555;
+            }
+
+            color: #777;
+        }
+
+        i {
+            margin: 0.4em;
+        }
+    }
+}
