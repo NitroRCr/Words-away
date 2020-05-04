@@ -125,7 +125,7 @@ Index.prototype.setRandomBg = function () {
         }
         img.src = this.randint(bgs);
     }
-    setTimeout(() => {this.setRandomBg()}, 20 * 1000);
+    setTimeout(() => {this.setRandomBg()}, 30 * 1000);
 }
 $().ready(function () {
     var index = new Index();
