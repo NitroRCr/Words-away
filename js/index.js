@@ -87,7 +87,7 @@ function Index() {
         'img/dark-PC-compressed/10.jpg',
         'img/dark-PC-compressed/11.jpg',
         'img/dark-PC-compressed/12.jpg',
-    ]
+    ];
     this.portBgs = [
         'img/dark-mobile-compressed/0.jpg',
         'img/dark-mobile-compressed/1.jpg',
@@ -110,7 +110,14 @@ function Index() {
         'img/dark-mobile-compressed/d.jpg',
         'img/dark-mobile-compressed/e.jpg',
         'img/dark-mobile-compressed/f.jpg',
-    ]
+    ];
+    var u = navigator.userAgent;
+    this.isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    this.isFireFox = u.indexOf("Firefox") > -1;
+    if (this.isiOS) {
+        $('.main .background').css('transform', 'translate3d(0,0,0)')
+            .css('height', '100%');
+    }
 }
 Index.prototype.randint = function (obj) {
     return obj[Object.keys(obj)[Math.floor(Math.random() * Object.keys(obj).length)]];
@@ -127,10 +134,10 @@ Index.prototype.setRandomBg = function () {
         }
         img.src = this.randint(bgs);
     }
-    setTimeout(() => {this.setRandomBg()}, 30 * 1000);
+    !this.isFireFox && setTimeout(() => {this.setRandomBg()}, 30 * 1000);
 }
 $().ready(function () {
     var index = new Index();
     index.setRandomBg();
-    new OneText('.one-text-a', {interval: 15, libs: ['official', 'ext']})
+    new OneText('.one-text-a', {interval: 15, quote: true, libs: ['official', 'ext']})
 });

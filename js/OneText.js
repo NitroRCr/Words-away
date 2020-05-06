@@ -54,8 +54,10 @@ function OneText(selector, config = {}) {
     }
     this.config.interval = (this.config.interval === undefined) ?
         20 : this.config.interval;
-    this.config.autoDash = (this.config.autoDash === undefined) ?
-        true : this.config.autoDash;
+    this.config.dash = (this.config.dash === undefined) ?
+        true : this.config.dash;
+    this.config.quote = (this.config.quote === undefined) ?
+        false : this.config.quote;
     this.textTag = (this.detail) ?
         this.tag.find('.text') :
         this.tag;
@@ -1170,8 +1172,9 @@ OneText.prototype.set = function (first = false) {
     this.tag.animate({
         opacity: 0
     }, (first) ? 0 : 500, () => {
-        this.textTag.text(one.text).html(this.textTag.html().replace(/\n/g, '<br>'));
-        var dash = (this.config.autoDash) ? '—— ' : '';
+        var dash = (this.config.dash) ? '—— ' : '';
+        var quote = (this.config.quote) ? '"' : '';
+        this.textTag.text(quote + one.text + quote).html(this.textTag.html().replace(/\n/g, '<br>'));
         this.fromTag && this.fromTag.text((one.from) ? (dash + one.from) : '');
         this.byTag && this.byTag.text((one.by) ? (dash + one.by) : '');
         this.timeTag && this.timeTag.text((one.time) ? one.time[one.time.length - 1] : '');

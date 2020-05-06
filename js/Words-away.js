@@ -122,3 +122,10 @@ WordsAway.prototype.verticalText = function (text, maxCol = 12, minHeight = 10) 
     }
     return result;
 }
+WordsAway.prototype.unicodeStyle = function() {
+    
+}
+WordsAway.prototype.letters = {
+    normal: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    
+}
