@@ -134,10 +134,11 @@ Index.prototype.setRandomBg = function () {
         }
         img.src = this.randint(bgs);
     }
-    !this.isFireFox && setTimeout(() => {this.setRandomBg()}, 30 * 1000);
+    !this.isFireFox && !this.isiOS && setTimeout(() => {this.setRandomBg()}, 30 * 1000);
 }
+var index;
 $().ready(function () {
-    var index = new Index();
+    index = new Index();
     index.setRandomBg();
     new OneText('.one-text-a', {interval: 15, quote: true, libs: ['official', 'ext']})
 });
