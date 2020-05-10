@@ -159,8 +159,7 @@ WordsAway.prototype.replaceAll = function (text, from, to) {
         if (to[i] === undefined) {
             continue;
         }
-        text = text.replace(new RegExp(from.fromCodePoint(i), 'g'), to.fromCodePoint(i));
-        console.log(text);
+        text = text.replace(new RegExp(from[i], 'g'), to.slice(2 * i, 2 * i + 2));
     }
     return text;
 }
