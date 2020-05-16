@@ -69,7 +69,7 @@ $('#vertical-text').click(function () {
 new ClipboardJS('.to-copy');
 $('.to-copy').click(function () {
     M.toast({
-        html: '已复制<i class="c-huaji no-transform"></i>'
+        html: '已复制'
     });
 })
 
