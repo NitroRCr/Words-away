@@ -13,14 +13,14 @@ $('.start-mixin').click(function () {
     text = ($('#words-reverse')[0].checked) ?
         wordsAway.wordsReverse(text, missBrackets) :
         text;
-    text = (missBrackets) ?
-        text.replace(/\[(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\]/g, '$1') :
-        text;
     text = ($('#zero-width-space')[0].checked) ?
         wordsAway.mixin(text, mixin, missBrackets) :
         text;
     text = ($('#vertical-text')[0].checked) ?
         wordsAway.verticalText(text, parseInt($('#max-col').val()), parseInt($('#min-row').val())) :
+        text;
+    text = (missBrackets) ?
+        text.replace(/\[(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\]/g, '$1') :
         text;
     $('pre.result').text(text);
     $('.to-copy').attr('data-clipboard-text', text);
