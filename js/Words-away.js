@@ -122,3 +122,21 @@ WordsAway.prototype.verticalText = function (text, maxCol = 12, minHeight = 10) 
     }
     return result;
 }
+WordsAway.prototype.sameShape = function(text) {
+    var styles = {
+        'normal': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        //实际有效：асԁеցһіјӏոорԛѕսԝхуАВСЕНІЈКМОРԚЅΤՍԜХΥΖ
+        'fake-normal': 'аbсԁеfցһіјkӏmոорԛrѕtսvԝхуzАВСDЕFGНІЈКLМNОРԚRЅΤՍVԜХΥΖ',
+    }
+    return this.replaceAll(text, styles['normal'], styles['fake-normal']);
+}
+WordsAway.prototype.replaceAll = function (text, from, to) {
+    for (let i = 0; i < from.length; i++) {
+        if (to[i] === undefined) {
+            continue;
+        }
+        let step = (to.codePointAt(0) > 65536) ? 2 : 1;
+        text = text.replace(new RegExp(from[i], 'g'), to.slice(step * i, step * i + step));
+    }
+    return text;
+}

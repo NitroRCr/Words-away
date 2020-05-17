@@ -22,6 +22,9 @@ $('.start-mixin').click(function () {
     text = (missBrackets) ?
         text.replace(/\[(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\]/g, '$1') :
         text;
+    text = ($('#fake-normal')[0].checked) ?
+        wordsAway.sameShape(text) :
+        text;
     $('pre.result').text(text);
     $('.to-copy').attr('data-clipboard-text', text);
 })
