@@ -85,7 +85,7 @@ h3 {
         transform-style: preserve-3d;
         padding: 0;
 
-        >.row,
+        > .row,
         .route {
             position: relative;
             margin: 0;
@@ -129,6 +129,7 @@ h3 {
                     transition: background 1s ease;
                     filter: brightness(75%);
                     background-image: url(../img/dark-mobile-compressed/port-black.png);
+
                     @media screen and (orientation: landscape) {
                         .container {
                             background-image: url(../img/dark-PC-compressed/land-black.png);
@@ -183,4 +184,11 @@ footer {
             margin: 0.4em;
         }
     }
+}
+
+#busuanzi_container_site_pv {
+    position: absolute;
+    right: 5px;
+    bottom: 3px;
+    color: #eee;
 }

@@ -1,4 +1,5 @@
-body, pre {
+body,
+pre {
     color: #555;
     font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     font-size: 16px;
@@ -41,4 +42,10 @@ h3 {
 
 .input-field.hidden {
     display: none;
+}
+
+
+#busuanzi_container_site_pv {
+    position: absolute;
+    right: 5px;
 }

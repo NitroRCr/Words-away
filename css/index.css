@@ -142,4 +142,10 @@ footer {
     footer > div i {
       margin: 0.4em; }
 
+#busuanzi_container_site_pv {
+  position: absolute;
+  right: 5px;
+  bottom: 3px;
+  color: #eee; }
+
 /*# sourceMappingURL=index.css.map */
