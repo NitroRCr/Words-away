@@ -38,7 +38,7 @@ WordsAway.prototype.turnOver = function (text, missBrackets = true) {
                 inBrackets = true;
             } else if (y == ']' && missBrackets) {
                 inBrackets = false;
-                newRow = i.slice(before, parseInt(j) + 1) + newRow;
+                newRow = i.slice(before, parseInt(j) + 1).join('') + newRow;
             } else if (!inBrackets) {
                 newRow = y + newRow;
             }
@@ -50,7 +50,6 @@ WordsAway.prototype.turnOver = function (text, missBrackets = true) {
         newRow = '\u202e' + newRow + '\n';
         result += newRow;
     }
-    console.log(result);
     return this.toggleBrackets(result);
 }
 WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
@@ -73,7 +72,7 @@ WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
                 hasBrackets = true;
             }
             if (inBrackets | hasBrackets) {
-                newRow += y;
+                newRow += y.join('');
             } else {
                 newRow += '\u200e' + x[j] + '\u202e' +
                     ((x[j + 2] !== undefined) ? this.toggleBracketsChar(x[j + 2]) : '') +
@@ -83,7 +82,6 @@ WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
         }
         result += newRow + '\n';
     }
-    console.log(result);
     return result;
 }
 WordsAway.prototype.toggleBrackets = function (text) {
