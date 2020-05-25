@@ -36,7 +36,7 @@ WordsAway.prototype.turnOver = function (text, missBrackets = true) {
             if (y == '[' && missBrackets) {
                 before = j;
                 inBrackets = true;
-            } else if (y == ']' && missBrackets) {
+            } else if (y == ']' && missBrackets && inBrackets) {
                 inBrackets = false;
                 newRow = i.slice(before, parseInt(j) + 1).join('') + newRow;
             } else if (!inBrackets) {
