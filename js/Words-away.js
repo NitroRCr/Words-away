@@ -45,7 +45,7 @@ WordsAway.prototype.turnOver = function (text, missBrackets = true) {
         }
         if (inBrackets && missBrackets) {
             inBrackets = false;
-            newRow = i.slice(before, i.length + 1) + newRow;
+            newRow = i.slice(before, i.length + 1).reverse().join('') + newRow;
         }
         newRow = '\u202e' + newRow + '\n';
         result += newRow;
