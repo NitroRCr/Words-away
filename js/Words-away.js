@@ -52,7 +52,6 @@ WordsAway.prototype.turnOver = function (text, missBrackets = true) {
             newRow = '\u202e' + newRow + '\n';
         } else {
             newRow = '\u202e' + newRow;
-            console.log("last");
         }
         result += newRow;
     }
@@ -86,7 +85,11 @@ WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
                     '\u202c';
             }
         }
-        result += newRow + '\n';
+        if (i < rows.length - 1) {
+            result += newRow + '\n';
+        } else {
+            result += newRow;
+        }
     }
     return result;
 }
