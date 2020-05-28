@@ -26,28 +26,34 @@ WordsAway.prototype.mixin = function (text, mixin = '\u200b', missBrackets = tru
 WordsAway.prototype.turnOver = function (text, missBrackets = true) {
     var rows = text.split('\n');
     var result = '';
-    for (let i of rows) {
+    for (let i in rows) {
+        let x = rows[i];
         i = Array.from(i);
         let inBrackets = false;
         let before;
         let newRow = '';
-        for (let j in i) {
-            let y = i[j];
+        for (let j in x) {
+            let y = x[j];
             if (y == '[' && missBrackets) {
                 before = j;
                 inBrackets = true;
             } else if (y == ']' && missBrackets && inBrackets) {
                 inBrackets = false;
-                newRow = i.slice(before, parseInt(j) + 1).join('') + newRow;
+                newRow = x.slice(before, parseInt(j) + 1).join('') + newRow;
             } else if (!inBrackets) {
                 newRow = y + newRow;
             }
         }
         if (inBrackets && missBrackets) {
             inBrackets = false;
-            newRow = i.slice(before, i.length + 1).reverse().join('') + newRow;
+            newRow = x.slice(before, x.length + 1).reverse().join('') + newRow;
         }
-        newRow = '\u202e' + newRow + '\n';
+        if (i < rows.length - 1) {
+            newRow = '\u202e' + newRow + '\n';
+        } else {
+            newRow = '\u202e' + newRow;
+            console.log("last");
+        }
         result += newRow;
     }
     return this.toggleBrackets(result);
