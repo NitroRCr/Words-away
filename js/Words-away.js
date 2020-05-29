@@ -27,8 +27,7 @@ WordsAway.prototype.turnOver = function (text, missBrackets = true) {
     var rows = text.split('\n');
     var result = '';
     for (let i in rows) {
-        let x = rows[i];
-        i = Array.from(i);
+        let x = Array.from(rows[i]);
         let inBrackets = false;
         let before;
         let newRow = '';
