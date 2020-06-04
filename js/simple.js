@@ -25,34 +25,48 @@ $('.start-mixin').click(function () {
     text = ($('#fake-normal')[0].checked) ?
         wordsAway.sameShape(text) :
         text;
-    $('pre.result').text(text);
-    $('.to-copy').attr('data-clipboard-text', text);
-})
+    if ($('#shorten-url')[0].checked) {
+        for (let i of text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g)) {
+            $.ajax({
+                url: encodeURI('https://toodo.fun/funs/surl/makeSurl.php?url=' + encodeURIComponent(i)),
+                dataType: 'jsonp',
+                success: (data) => {
+                    var json = JSON.parse(data);
+                    var url = 'https://' + json['data'];
+                    text = text.replace(i, url);
+                }
+            })
+        }
+    } else {
+        $('pre.result').text(text);
+        $('.to-copy').attr('data-clipboard-text', text);
+    }
+});
 
 $('#miss-brackets').click(function () {
     if ($(this)[0].checked) {
         $('#vertical-text')[0].checked = false;
     }
-})
+});
 $('#rows-reverse').click(function () {
     if ($(this)[0].checked) {
         $('#words-reverse')[0].checked = false;
         $('#vertical-text')[0].checked = false;
     }
-})
+});
 $('#words-reverse').click(function () {
     if ($(this)[0].checked) {
         $('#rows-reverse')[0].checked = false;
         $('#zero-width-space')[0].checked = false;
         $('#vertical-text')[0].checked = false;
     }
-})
+});
 $('#zero-width-space').click(function () {
     if ($(this)[0].checked) {
         $('#words-reverse')[0].checked = false;
         $('#vertical-text')[0].checked = false;
     }
-})
+});
 $('#vertical-text').click(function () {
     if ($(this)[0].checked) {
         $('#rows-reverse').attr('disabled', 'disabled')[0].checked = false;
@@ -67,11 +81,11 @@ $('#vertical-text').click(function () {
         $('#miss-brackets').removeAttr('disabled')[0].checked = true;
         $('.input-field.hidden').css('display', 'none');
     }
-})
+});
 
 new ClipboardJS('.to-copy');
 $('.to-copy').click(function () {
     M.toast({
-        html: '已复制<i class="c-huaji no-transform"></i>'
+        html: '已复制'
     });
-})
+});
