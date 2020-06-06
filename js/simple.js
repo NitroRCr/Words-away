@@ -49,17 +49,18 @@ $('.start-mixin').click(function () {
             var settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "/api/shortenurl/get?via=via&type=type&custom=custom&private=1&password=password&uses=100&url=" + encodeURIComponent(i),
+                "url": "/api/shortenurl/get?via=via&type=type&custom=" + Math.random().toString(36).slice(-4) + "&private=1&password=password&uses=100&url=" + encodeURIComponent(urls[i]),
                 "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "free-url-shortener.p.rapidapi.com",
                     "x-rapidapi-key": "371c5214f2msh8192485aef7f824p176391jsn68ba5f579482",
                     "password": "",
-                    "custom": Math.random().toString(36).slice(-4),
+                    "custom": '',
                     "url": urls[i],
                     "private": ""
                 }
             }
+            console.log(settings.url);
             $.ajax(settings).done(function (response) {
                 console.log(response);
             });
