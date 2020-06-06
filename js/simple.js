@@ -28,42 +28,16 @@ $('.start-mixin').click(function () {
     if ($('#shorten-url')[0].checked) {
         var urls = text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g);
         for (let i in urls) {
-            /*$.get('http://sho.rt/yourls-api.php', {
-                    username: "your_username",
-                    password: "your_password",
-                    action: "shorturl",
-                    format: "jsonp",
-                    url: urls[i]
-                },
-                (data) => {
-                    console.log(data);
-                    var json = JSON.parse(data);
-                    var url = json['url']['url'];
-                    text = text.replace(urls[i], url);
-                    if (i == url.length - 1) {
-                        $('pre.result').text(text);
-                        $('.to-copy').attr('data-clipboard-text', text);
-                    }
+            $.get('https://is.gd/create.php', {
+                'url': urls[i],
+                'format': 'json'
+            }, (data) => {
+                text = text.replace(urls[i], data['shorturl']);
+                if (i == urls.length - 1) {
+                    $('pre.result').text(text);
+                    $('.to-copy').attr('data-clipboard-text', text);
                 }
-            );*/
-            var settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": "/api/shortenurl/get?via=via&type=type&custom=" + Math.random().toString(36).slice(-4) + "&private=1&password=password&uses=100&url=" + encodeURIComponent(urls[i]),
-                "method": "GET",
-                "headers": {
-                    "x-rapidapi-host": "free-url-shortener.p.rapidapi.com",
-                    "x-rapidapi-key": "371c5214f2msh8192485aef7f824p176391jsn68ba5f579482",
-                    "password": "",
-                    "custom": '',
-                    "url": urls[i],
-                    "private": ""
-                }
-            }
-            console.log(settings.url);
-            $.ajax(settings).done(function (response) {
-                console.log(response);
-            });
+            }, 'jsonp');
         }
     } else {
         $('pre.result').text(text);
