@@ -49,7 +49,7 @@ $('.start-mixin').click(function () {
             var settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "api/shortenurl/get?via=via&type=type&custom=custom&private=1&password=password&uses=100&url=" + encodeURIComponent(i),
+                "url": "/api/shortenurl/get?via=via&type=type&custom=custom&private=1&password=password&uses=100&url=" + encodeURIComponent(i),
                 "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "free-url-shortener.p.rapidapi.com",
