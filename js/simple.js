@@ -26,16 +26,44 @@ $('.start-mixin').click(function () {
         wordsAway.sameShape(text) :
         text;
     if ($('#shorten-url')[0].checked) {
-        for (let i of text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g)) {
-            $.ajax({
-                url: encodeURI('https://toodo.fun/funs/surl/makeSurl.php?url=' + encodeURIComponent(i)),
-                dataType: 'jsonp',
-                success: (data) => {
+        var urls = text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g);
+        for (let i in urls) {
+            /*$.get('http://sho.rt/yourls-api.php', {
+                    username: "your_username",
+                    password: "your_password",
+                    action: "shorturl",
+                    format: "jsonp",
+                    url: urls[i]
+                },
+                (data) => {
+                    console.log(data);
                     var json = JSON.parse(data);
-                    var url = 'https://' + json['data'];
-                    text = text.replace(i, url);
+                    var url = json['url']['url'];
+                    text = text.replace(urls[i], url);
+                    if (i == url.length - 1) {
+                        $('pre.result').text(text);
+                        $('.to-copy').attr('data-clipboard-text', text);
+                    }
                 }
-            })
+            );*/
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "api/shortenurl/get?via=via&type=type&custom=custom&private=1&password=password&uses=100&url=https%253A%252F%252Fbaidu.com",
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "free-url-shortener.p.rapidapi.com",
+                    "x-rapidapi-key": "371c5214f2msh8192485aef7f824p176391jsn68ba5f579482",
+                    "password": "",
+                    "custom": "",
+                    "url": urls[i],
+                    "private": ""
+                }
+            }
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
         }
     } else {
         $('pre.result').text(text);
