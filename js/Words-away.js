@@ -131,21 +131,61 @@ WordsAway.prototype.verticalText = function (text, maxCol = 12, minHeight = 10) 
     }
     return result;
 }
-WordsAway.prototype.sameShape = function(text) {
+WordsAway.prototype.sameShape = function(text, brackets) {
     var styles = {
         'normal': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
         //实际有效：асԁеցһіјӏոорԛѕսԝхуАВСЕНІЈКМОРԚЅΤՍԜХΥΖ
         'fake-normal': 'аbсԁеfցһіјkӏmոорԛrѕtսvԝхуzАВСDЕFGНІЈКLМNОРԚRЅΤՍVԜХΥΖ',
     }
-    return this.replaceAll(text, styles['normal'], styles['fake-normal']);
+    return this.replaceAll(text, styles['normal'], styles['fake-normal'], brackets);
 }
-WordsAway.prototype.replaceAll = function (text, from, to) {
-    for (let i = 0; i < from.length; i++) {
-        if (to[i] === undefined) {
-            continue;
-        }
-        let step = (to.codePointAt(0) > 65536) ? 2 : 1;
-        text = text.replace(new RegExp(from[i], 'g'), to.slice(step * i, step * i + step));
+WordsAway.prototype.replaceAll = function (text, from, to, brackets) {
+    if (from.length != to.length) {
+        console.log('`from` and `to`, length are not the same!');
     }
-    return text;
+    var result = '';
+    var list = this.stringListed(text, brackets);
+    for (let i of list) {
+        let found = false;
+        for (let j in from) {
+            if (i == from[j]) {
+                result += to[j];
+                found = true;
+            }
+        }
+        if (!found) {
+            result += i;
+        }
+    }
+    return result;
+}
+WordsAway.prototype.stringListed = function(text, brackets = true) {
+    var list = Array.from(text);
+    var result = [];
+    if (brackets) {
+        var inBrackets = false;
+        var before = 0;
+        for (i in list) {
+            let x = list[i];
+            if (x == '[') {
+                if (inBrackets) {
+                    result.concat(list.slice(before, i));
+                } else {
+                    inBrackets = true;
+                    before = i;
+                }
+            } else if (x == ']' && inBrackets) {
+                inBrackets = false;
+                result.push(list.slice(before, i + 1).join());
+            } else if (!inBrackets) {
+                result.push(x);
+            }
+        }
+        if (inBrackets) {
+            result.concat(list.slice(before, list.length));
+        }
+    } else {
+        result = list;
+    }
+    return result
 }
