@@ -120,8 +120,6 @@ WordsAway.prototype.stringListed = function (text, brackets = true) {
             } else if (x == ']' && inBrackets) {
                 inBrackets = false;
                 result.push(list.slice(before, i + 1).join(''));
-                console.log(i + 1);
-                console.log(list.slice(before, i + 1));
             } else if (!inBrackets) {
                 result.push(x);
             }

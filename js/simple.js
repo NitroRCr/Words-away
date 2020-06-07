@@ -23,16 +23,17 @@ $('.start-mixin').click(function () {
         text.replace(/\[(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\]/g, '$1') :
         text;
     text = ($('#fake-normal')[0].checked) ?
-        wordsAway.sameShape(text) :
+        wordsAway.sameShape(text, missBrackets) :
         text;
-    
+
     var setText = () => {
         $('pre.result').text(text);
         $('.to-copy').attr('data-clipboard-text', text);
     }
-    
+
     if ($('#shorten-url')[0].checked) {
         var urls = text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g);
+        $('pre.result').text('短链接请求中...');
         urls || setText();
         for (let i in urls) {
             $.get('https://is.gd/create.php', {
@@ -43,7 +44,10 @@ $('.start-mixin').click(function () {
                 if (i == urls.length - 1) {
                     setText();
                 }
-            }, 'jsonp');
+            }, 'jsonp').fail(() => {
+                M.toast('短链接请求失败');
+                setText();
+            });
         }
     } else {
         setText();

@@ -16,7 +16,7 @@
         <p style="line-height: 2;">
             一个文本处理工具，可用于避免酷安的关键词误屏蔽<i class="c-shounuehuaji"></i><br>
         </p>
-        
+
         <div class="row">
             <form class="col s12">
                 <div class="row">
@@ -36,7 +36,7 @@
                         <div class="switch">
                             <label>
                                 <input type="checkbox" class="filled-in" checked="checked" id="miss-brackets" />
-                                <span>避开链接和中括号</span>
+                                <span>兼容链接和酷安表情</span>
                             </label><br>
                             <label>
                                 <input type="checkbox" class="filled-in" id="zero-width-space" checked="checked" />
@@ -52,7 +52,7 @@
                             </label><br>
                             <label>
                                 <input type="checkbox" class="filled-in" id="shorten-url" />
-                                <span>链接转短</span>
+                                <span>链接转短链接（API）</span>
                             </label><br>
                             <label>
                                 <input type="checkbox" class="filled-in" id="vertical-text" />
@@ -60,7 +60,7 @@
                             </label><br>
                             <label>
                                 <input type="checkbox" class="filled-in" id="fake-normal" />
-                                <span>同形字母替换（不兼容链接）</span>
+                                <span>同形字母替换（附加）</span>
                             </label><br>
                         </div>
                         <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">处理</a>
@@ -89,6 +89,8 @@
         <p>
             另一种增强模式，缺陷是当一行文本以多行的形式显示时，有三分之一的概率 上一行的最后一字与下一行的第一个字位置交换，这里不作过多解释。
         </p>
+        <h3>链接转短链接</h3>
+        <p>使用<a href="https://is.gd">is.gd</a>的API，将文本中的http/https链接替换短连接，以避开对链接的域名检测</p>
         <h3>转为竖向排列</h3>
         <p>
             纯“物理”的处理方法，不使用Unicode控制符，仅把文本转为竖向排列。<br>
@@ -132,7 +134,7 @@
     <script src="js/simple.js"></script>
     <script src="js/materialize.min.js"></script>
     <script src="https://coolemotion.netlify.com/png-edition/coolapk-emotion-png.min.js"></script>
-<!--
+    <!--
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
     </script>
 -->
