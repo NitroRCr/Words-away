@@ -1,101 +1,44 @@
 function WordsAway() {}
 WordsAway.prototype.mixin = function (text, mixin = '\u200b', missBrackets = true) {
-    text = Array.from(text);
-    var result = '';
-    var inBrackets = false;
-    if (missBrackets) {
-        for (let i of text) {
-            if (inBrackets) {
-                result += i;
-            } else {
-                result += (mixin + i);
-            }
-            if (i == '[') {
-                inBrackets = true;
-            } else if (i == ']') {
-                inBrackets = false;
-            }
-        }
-    } else {
-        for (let i of text) {
-            result += (mixin + i);
-        }
-    }
-    return result;
+    return this.stringListed(text, missBrackets).join(mixin);
 }
-WordsAway.prototype.turnOver = function (text, missBrackets = true) {
+WordsAway.prototype.rowsReverse = function (text, missBrackets = true) {
     var rows = text.split('\n');
     var result = '';
-    for (let i in rows) {
-        let x = Array.from(rows[i]);
-        let inBrackets = false;
-        let before;
-        let newRow = '';
-        for (let j in x) {
-            let y = x[j];
-            if (y == '[' && missBrackets) {
-                before = j;
-                inBrackets = true;
-            } else if (y == ']' && missBrackets && inBrackets) {
-                inBrackets = false;
-                newRow = x.slice(before, parseInt(j) + 1).join('') + newRow;
-            } else if (!inBrackets) {
-                newRow = y + newRow;
-            }
-        }
-        if (inBrackets && missBrackets) {
-            inBrackets = false;
-            newRow = x.slice(before, x.length + 1).reverse().join('') + newRow;
-        }
+    for (let i = 0; i < rows.length; i++) {
+        result += '\u202e' + this.stringListed(rows[i], missBrackets).reverse().join('');
         if (i < rows.length - 1) {
-            newRow = '\u202e' + newRow + '\n';
-        } else {
-            newRow = '\u202e' + newRow;
+            result += '\n';
         }
-        result += newRow;
     }
-    return this.toggleBrackets(result);
+    return this.toggleBrackets(result, missBrackets);
 }
 WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
     var rows = text.split('\n');
     var result = '';
-    for (let i in rows) {
-        let inBrackets = false;
-        let x = Array.from(rows[i]);
-        let before;
-        let newRow = '';
-        for (let j = 0; j < x.length; j += 3) {
-            let y = x.slice(j, j + 3);
-            let hasBrackets = false;
-            if (y.indexOf('[') != -1 && missBrackets) {
-                inBrackets = true;
-                hasBrackets = true;
-            }
-            if (y.indexOf(']') != -1 && missBrackets) {
-                inBrackets = false;
-                hasBrackets = true;
-            }
-            if (inBrackets | hasBrackets) {
-                newRow += y.join('');
-            } else {
-                newRow += '\u200e' + x[j] + '\u202e' +
-                    ((x[j + 2] !== undefined) ? this.toggleBracketsChar(x[j + 2]) : '') +
-                    ((x[j + 1] !== undefined) ? this.toggleBracketsChar(x[j + 1]) : '') +
-                    '\u202c';
-            }
+    for (let i = 0; i < rows.length; i++) {
+        let list = this.stringListed(rows[i]);
+        for (let j = 0; j < list.length; j += 3) {
+            let first = list[j];
+            let second = (list[j + 1] !== undefined) ?
+                this.toggleBracketsChar(list[j + 1]) :
+                '';
+            let third = (list[j + 2] !== undefined) ?
+                this.toggleBracketsChar(list[j + 2]) :
+                '';
+            result += ('\u200e' + first + '\u202e' + third + second + '\u202c');
         }
         if (i < rows.length - 1) {
-            result += newRow + '\n';
-        } else {
-            result += newRow;
+            result += '\n';
         }
     }
     return result;
 }
-WordsAway.prototype.toggleBrackets = function (text) {
+WordsAway.prototype.toggleBrackets = function (text, brackets) {
+    var list = this.stringListed(text, brackets);
     result = '';
-    for (let i in text) {
-        result += this.toggleBracketsChar(text[i]);
+    for (let i in list) {
+        result += this.toggleBracketsChar(list[i]);
     }
     return result;
 }
@@ -131,7 +74,7 @@ WordsAway.prototype.verticalText = function (text, maxCol = 12, minHeight = 10) 
     }
     return result;
 }
-WordsAway.prototype.sameShape = function(text, brackets) {
+WordsAway.prototype.sameShape = function (text, brackets) {
     var styles = {
         'normal': 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
         //实际有效：асԁеցһіјӏոорԛѕսԝхуАВСЕНІЈКМОРԚЅΤՍԜХΥΖ
@@ -159,13 +102,13 @@ WordsAway.prototype.replaceAll = function (text, from, to, brackets) {
     }
     return result;
 }
-WordsAway.prototype.stringListed = function(text, brackets = true) {
+WordsAway.prototype.stringListed = function (text, brackets = true) {
     var list = Array.from(text);
     var result = [];
     if (brackets) {
         var inBrackets = false;
         var before = 0;
-        for (i in list) {
+        for (let i = 0; i < list.length; i++) {
             let x = list[i];
             if (x == '[') {
                 if (inBrackets) {
@@ -176,7 +119,9 @@ WordsAway.prototype.stringListed = function(text, brackets = true) {
                 }
             } else if (x == ']' && inBrackets) {
                 inBrackets = false;
-                result.push(list.slice(before, i + 1).join());
+                result.push(list.slice(before, i + 1).join(''));
+                console.log(i + 1);
+                console.log(list.slice(before, i + 1));
             } else if (!inBrackets) {
                 result.push(x);
             }

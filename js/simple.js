@@ -8,7 +8,7 @@ $('.start-mixin').click(function () {
         text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g, '[$1]') :
         text;
     text = ($('#rows-reverse')[0].checked) ?
-        wordsAway.turnOver(text, missBrackets) :
+        wordsAway.rowsReverse(text, missBrackets) :
         text;
     text = ($('#words-reverse')[0].checked) ?
         wordsAway.wordsReverse(text, missBrackets) :
@@ -25,8 +25,15 @@ $('.start-mixin').click(function () {
     text = ($('#fake-normal')[0].checked) ?
         wordsAway.sameShape(text) :
         text;
+    
+    var setText = () => {
+        $('pre.result').text(text);
+        $('.to-copy').attr('data-clipboard-text', text);
+    }
+    
     if ($('#shorten-url')[0].checked) {
         var urls = text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g);
+        urls || setText();
         for (let i in urls) {
             $.get('https://is.gd/create.php', {
                 'url': urls[i],
@@ -34,14 +41,12 @@ $('.start-mixin').click(function () {
             }, (data) => {
                 text = text.replace(urls[i], data['shorturl']);
                 if (i == urls.length - 1) {
-                    $('pre.result').text(text);
-                    $('.to-copy').attr('data-clipboard-text', text);
+                    setText();
                 }
             }, 'jsonp');
         }
     } else {
-        $('pre.result').text(text);
-        $('.to-copy').attr('data-clipboard-text', text);
+        setText();
     }
 });
 
