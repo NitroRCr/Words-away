@@ -81,11 +81,11 @@
                             <p>可根据需要选用不同的处理方式</p>
                         </div>
                         <div class="col s12 m6">
-                           <h3>Change Log v0.10.2</h3>
+                           <h3>Change Log v0.11</h3>
                            <p>
-                           优化细节，修复bug <br>
-                           <span style="font-weight: bold;">v0.10.1</span><br>
-                              兼容 emoji 等 代理对字符
+                           新增 链接转短链接 选项<br>
+                           改进 同形字母替换 选项
+                           优化 代码逻辑
                             </p>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                             <div class="switch">
                                 <label>
                                     <input type="checkbox" class="filled-in" checked="checked" id="miss-brackets" />
-                                    <span>避开链接和中括号</span>
+                                    <span>兼容链接和酷安表情</span>
                                 </label><br>
                                 <label>
                                     <input type="checkbox" class="filled-in" id="zero-width-space" checked="checked" />
@@ -144,12 +144,16 @@
                                     <span>每两字双重反转（增强）</span>
                                 </label><br>
                                 <label>
+                                    <input type="checkbox" class="filled-in" id="shorten-url" />
+                                    <span>链接转短链接（API）</span>
+                                </label><br>
+                                <label>
                                     <input type="checkbox" class="filled-in" id="vertical-text" />
                                     <span>转为竖向排列（物理）</span>
                                 </label><br>
                                 <label>
                                     <input type="checkbox" class="filled-in" id="fake-normal" />
-                                    <span>同形字母替换（不兼容链接）</span>
+                                    <span>同形字母替换（附加）</span>
                                 </label><br>
                             </div>
                             <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">处理</a>
@@ -184,6 +188,8 @@
                     <p>
                         另一种增强模式，缺陷是当一行文本以多行的形式显示时，有三分之一的概率 上一行的最后一字与下一行的第一个字位置交换，这里不作过多解释。
                     </p>
+                    <h3>链接转短链接</h3>
+                    <p>使用<a href="https://is.gd">is.gd</a>的API，将文本中的http/https链接替换短连接，以避开对链接的域名检测</p>
                     <h3>转为竖向排列</h3>
                     <p>
                         纯“物理”的处理方法，不使用Unicode控制符，仅把文本转为竖向排列。<br>
@@ -203,10 +209,11 @@
                         <li>- 禁止用于传播不良信息。使用不当造成不良后果概不负责。</li>
                         <li>- 无法避开所有的关键词检测</li>
                         <li>- 只能避开机器检测</li>
+                        <li>- 请低调使用</li>
                         <li>- nhml警告<i class="c-shounuehuaji"></i></li>
                         (酷安小编本人说过用Unicode控制符发送严重违规消息直接永封不解。)
                         <li>- 某些模式不能共存</li>
-                        <li>- 一段文本不可多次处理，处理后的文本暂无法直接还原。</li>
+                        <li>- 处理后的文本暂无法直接还原。</li>
                     </ul>
                     <div style="height: 50px;"></div>
                 </div>
@@ -232,6 +239,7 @@
     <script src="js/clipboard.min.js"></script>
     <script src="js/Words-away.js"></script>
     <script src="js/OneText.js"></script>
+    <script src="js/simple.js"></script>
     <script src="js/index.js"></script>
     <script src="js/materialize.min.js"></script>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">

@@ -14,9 +14,67 @@
     <div class="container">
         <h1 style="font-weight: bold; font-size: 2em">文本防检测 | Words-away</h1>
         <p style="line-height: 2;">
-            一个文本处理工具，可用于避免酷安的关键词误屏蔽<i class="c-shounuehuaji"></i><br>
-            以下是说明：
+            一个文本处理工具，可用于避免酷安的关键词误屏蔽<br>
         </p>
+
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12 text-in">
+                        <textarea id="textin" class="materialize-textarea"></textarea>
+                        <label for="textin">输入文本</label>
+                    </div>
+                    <div class="input-field col s6 inline hidden">
+                        <input id="max-col" type="text" value="12">
+                        <label for="max-col">最大列数</label>
+                    </div>
+                    <div class="input-field col s6 inline hidden">
+                        <input id="min-row" type="text" value="5">
+                        <label for="min-row">最小行数</label>
+                    </div>
+                    <div class="input-field col s12 checkboxs">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" class="filled-in" checked="checked" id="miss-brackets" />
+                                <span>兼容链接和酷安表情</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="zero-width-space" checked="checked" />
+                                <span>零宽间隔（普通）</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="rows-reverse" />
+                                <span>每行双重反转（增强）</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="words-reverse" />
+                                <span>每两字双重反转（增强）</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="shorten-url" />
+                                <span>链接转短链接（API）</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="vertical-text" />
+                                <span>转为竖向排列（物理）</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="fake-normal" />
+                                <span>同形字母替换（附加）</span>
+                            </label><br>
+                        </div>
+                        <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">处理</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="height: 50px"></div>
+        <p style="font-weight: bold">处理结果：</p>
+        <pre class="result">请先处理<i class="c-shounuehuaji"></i>
+</pre>
+        <button data-clipboard-text="请先处理" class="waves-effect waves-light btn-small to-copy">复制</button>
+        <div style="height: 50px"></div>
+        <h2>使用说明</h2>
         <h3>零宽间隔模式</h3>
         <p>
             可视为普通模式，会在每两个字符之间插♂入一个 零宽间隔符 (<a href="https://unicode-table.com/cn/200B/">U+200B</a>)。<br>
@@ -31,6 +89,8 @@
         <p>
             另一种增强模式，缺陷是当一行文本以多行的形式显示时，有三分之一的概率 上一行的最后一字与下一行的第一个字位置交换，这里不作过多解释。
         </p>
+        <h3>链接转短链接</h3>
+        <p>使用<a href="https://is.gd">is.gd</a>的API，将文本中的http/https链接替换短连接，以避开对链接的域名检测</p>
         <h3>转为竖向排列</h3>
         <p>
             纯“物理”的处理方法，不使用Unicode控制符，仅把文本转为竖向排列。<br>
@@ -55,59 +115,7 @@
             <li>- 某些模式不能共存</li>
             <li>- 一段文本不可多次处理，处理后的文本暂无法直接还原。</li>
         </ul>
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s12 text-in">
-                        <textarea id="textin" class="materialize-textarea"></textarea>
-                        <label for="textin">输入文本</label>
-                    </div>
-                    <div class="input-field col s6 inline hidden">
-                        <input id="max-col" type="text" value="12">
-                        <label for="max-col">最大列数</label>
-                    </div>
-                    <div class="input-field col s6 inline hidden">
-                        <input id="min-row" type="text" value="5">
-                        <label for="min-row">最小行数</label>
-                    </div>
-                    <div class="input-field col s12 checkboxs">
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox" class="filled-in" checked="checked" id="miss-brackets" />
-                                <span>避开链接和中括号</span>
-                            </label><br>
-                            <label>
-                                <input type="checkbox" class="filled-in" id="zero-width-space" checked="checked" />
-                                <span>零宽间隔（普通）</span>
-                            </label><br>
-                            <label>
-                                <input type="checkbox" class="filled-in" id="rows-reverse" />
-                                <span>每行双重反转（增强）</span>
-                            </label><br>
-                            <label>
-                                <input type="checkbox" class="filled-in" id="words-reverse" />
-                                <span>每两字双重反转（增强）</span>
-                            </label><br>
-                            <label>
-                                <input type="checkbox" class="filled-in" id="vertical-text" />
-                                <span>转为竖向排列（物理）</span>
-                            </label><br>
-                            <label>
-                                <input type="checkbox" class="filled-in" id="fake-normal" />
-                                <span>同形字母替换（不兼容链接）</span>
-                            </label><br>
-                        </div>
-                        <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">处理</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div style="height: 100px"></div>
-        <p style="font-weight: bold">处理结果：</p>
-        <pre class="result">请先处理<i class="c-shounuehuaji"></i>
-</pre>
-        <button data-clipboard-text="请先处理" class="waves-effect waves-light btn-small to-copy">复制</button>
-        <div style="height: 100px"></div>
+        <div style="height: 50px;"></div>
         <p>
             <a href="https://github.com/NitroRCr/Words-away">Github 项目地址</a><br>
             <a href="index.html">花里胡哨的版本</a>
@@ -126,6 +134,8 @@
     <script src="js/simple.js"></script>
     <script src="js/materialize.min.js"></script>
     <script src="https://coolemotion.netlify.com/png-edition/coolapk-emotion-png.min.js"></script>
+    <!--
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
     </script>
+-->
 </body>
