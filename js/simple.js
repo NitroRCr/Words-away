@@ -19,11 +19,11 @@ $('.start-mixin').click(function () {
     text = ($('#vertical-text')[0].checked) ?
         wordsAway.verticalText(text, parseInt($('#max-col').val()), parseInt($('#min-row').val())) :
         text;
-    text = (missBrackets) ?
-        text.replace(/\[(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\]/g, '$1') :
-        text;
     text = ($('#fake-normal')[0].checked) ?
         wordsAway.sameShape(text, missBrackets) :
+        text;
+    text = (missBrackets) ?
+        text.replace(/\[(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\]/g, '$1') :
         text;
 
     var setText = () => {
@@ -57,6 +57,9 @@ $('.start-mixin').click(function () {
 $('#miss-brackets').click(function () {
     if ($(this)[0].checked) {
         $('#vertical-text')[0].checked = false;
+        $('#shorten-url').removeAttr('disabled');
+    } else {
+        $('#shorten-url').attr('disabled', 'disabled')[0].checked = false;
     }
 });
 $('#rows-reverse').click(function () {
@@ -84,12 +87,14 @@ $('#vertical-text').click(function () {
         $('#zero-width-space').attr('disabled', 'disabled')[0].checked = false;
         $('#words-reverse').attr('disabled', 'disabled')[0].checked = false;
         $('#miss-brackets').attr('disabled', 'disabled')[0].checked = false;
+        $('#shorten-url').attr('disabled', 'disabled')[0].checked = false;
         $('.input-field.hidden').css('display', 'inline-block');
     } else {
         $('#rows-reverse').removeAttr('disabled');
         $('#zero-width-space').removeAttr('disabled')[0].checked = true;
         $('#words-reverse').removeAttr('disabled');
         $('#miss-brackets').removeAttr('disabled')[0].checked = true;
+        $('#shorten-url').removeAttr('disabled');
         $('.input-field.hidden').css('display', 'none');
     }
 });
