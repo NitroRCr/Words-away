@@ -114,6 +114,18 @@ h3 {
       .parallax-stage .main > .row.row1,
       .parallax-stage .main .route.row1 {
         min-height: 100vh; }
+        .parallax-stage .main > .row.row1 .letf-bottom-cornor,
+        .parallax-stage .main .route.row1 .letf-bottom-cornor {
+          position: absolute;
+          left: 5px;
+          bottom: 0.4em;
+          color: #eee;
+          font-size: 1em;
+          line-height: 1.3; }
+        .parallax-stage .main > .row.row1 h3,
+        .parallax-stage .main .route.row1 h3 {
+          margin-top: 1rem;
+          margin-bottom: 0; }
   .parallax-stage div.head {
     font-weight: bold;
     font-size: 2em;

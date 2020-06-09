@@ -140,6 +140,18 @@ h3 {
 
             &.row1 {
                 min-height: 100vh;
+                .letf-bottom-cornor {
+                    position: absolute;
+                    left: 5px;
+                    bottom: 0.4em;
+                    color: #eee;
+                    font-size: 1em;
+                    line-height: 1.3;
+                }
+                h3 {
+                    margin-top: 1rem;
+                    margin-bottom: 0;
+                }
             }
 
             &.row3 {}
