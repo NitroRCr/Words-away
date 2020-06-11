@@ -12,9 +12,9 @@ $('.start-mixin').click(function () {
         text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g, marked) :
         text;
     text = (coolapkMode) ?
-        text.replace(/(#[\w\u4e00-\u9fa5]{1,20}#)/g, marked) :
+        text.replace(/(#[\w\u4e00-\u9fa5]{1,20}#)/g, marked)
+        .replace(/(@[\w\u4e00-\u9fa5]{1,20})/g, marked) :
         text;
-        
     text = ($('#rows-reverse')[0].checked) ?
         wordsAway.rowsReverse(text, missBrackets) :
         text;
@@ -30,9 +30,7 @@ $('.start-mixin').click(function () {
     text = ($('#fake-normal')[0].checked) ?
         wordsAway.sameShape(text, missBrackets) :
         text;
-    text = (missBrackets) ?
-        text.replace(/\ue0dc(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\ue0dd/g, '$1') :
-        text;
+    text = text.replace(/\ue0dc([^\s]+)ue0dd/g, '$1');
 
     var setText = () => {
         $('pre.result').text(text);
