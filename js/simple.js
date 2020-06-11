@@ -3,10 +3,17 @@ var wordsAway = new WordsAway();
 $('.start-mixin').click(function () {
     var text = $('#textin').val();
     var mixin = '\u200b';
-    var missBrackets = $('#miss-brackets')[0].checked;
+    var beforeMark = '\ue0dc',
+        afterMark = '\ue0dd';
+    var missBrackets = $('#miss-brackets')[0].checked,
+        coolapkMode = $('#coolapk-mode')[0].checked;
     text = (missBrackets) ?
-        text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g, '[$1]') :
+        text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g, '\ue0dc$1\ue0dd') :
         text;
+    text = (coolapkMode) ?
+        text.replace(/#[\w\u4e00-\u9fa5]{1,20}#/g) :
+        text;
+        
     text = ($('#rows-reverse')[0].checked) ?
         wordsAway.rowsReverse(text, missBrackets) :
         text;
@@ -23,7 +30,7 @@ $('.start-mixin').click(function () {
         wordsAway.sameShape(text, missBrackets) :
         text;
     text = (missBrackets) ?
-        text.replace(/\[(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\]/g, '$1') :
+        text.replace(/\ue0dc(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\ue0dd/g, '$1') :
         text;
 
     var setText = () => {

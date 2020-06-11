@@ -54,8 +54,8 @@
 + 用每行双重反转模式处理之后，当一行文本以多行的形式显示时，那几行的顺序会反转，[详见这里](https://blog.texice.xyz/2020/Anti-Text-Detect/#%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98)。暂时无法解决
 + 用每两字双重反转模式处理之后，当一行文本以多行的形式显示时，有三分之一的概率 上一行的最后一字与下一行的第一个字位置交换。暂时无法解决
 ## 使用：
-+ 可以使用 [在线网页](https://wordsaway.texice.xyz/)
-+ 可以在[Release页面](https://github.com/NitroRCr/Words-away/releases)下载最新的离线版本
++ 链接：[https://wordsaway.texice.xyz](https://wordsaway.texice.xyz)
++ ~~可以在[Release页面](https://github.com/NitroRCr/Words-away/releases)下载最新的离线版本~~
 >1. 打开网页  
 >2. 输入或粘贴需要处理的文本  
 >3. 根据需要选中相应的选项。  

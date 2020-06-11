@@ -102,29 +102,32 @@ WordsAway.prototype.replaceAll = function (text, from, to, brackets) {
     }
     return result;
 }
-WordsAway.prototype.stringListed = function (text, brackets = true) {
+WordsAway.prototype.stringListed = function (text,
+    marks = true,
+    beforeMark = '\ue0dc',
+    afterMark = '\ue0dd') {
     var list = Array.from(text);
     var result = [];
-    if (brackets) {
-        var inBrackets = false;
+    if (marks) {
+        var inMarks = false;
         var before = 0;
         for (let i = 0; i < list.length; i++) {
             let x = list[i];
-            if (x == '[') {
-                if (inBrackets) {
+            if (x == beforeMark) {
+                if (inMarks) {
                     result.concat(list.slice(before, i));
                 } else {
-                    inBrackets = true;
+                    inMarks = true;
                     before = i;
                 }
-            } else if (x == ']' && inBrackets) {
-                inBrackets = false;
+            } else if (x == afterMark && inMarks) {
+                inMarks = false;
                 result.push(list.slice(before, i + 1).join(''));
-            } else if (!inBrackets) {
+            } else if (!inMarks) {
                 result.push(x);
             }
         }
-        if (inBrackets) {
+        if (inMarks) {
             result.concat(list.slice(before, list.length));
         }
     } else {
