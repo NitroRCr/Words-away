@@ -7,11 +7,12 @@ $('.start-mixin').click(function () {
         afterMark = '\ue0dd';
     var missBrackets = $('#miss-brackets')[0].checked,
         coolapkMode = $('#coolapk-mode')[0].checked;
+    var marked = '\ue0dc$1\ue0dd';
     text = (missBrackets) ?
-        text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g, '\ue0dc$1\ue0dd') :
+        text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g, marked) :
         text;
     text = (coolapkMode) ?
-        text.replace(/#[\w\u4e00-\u9fa5]{1,20}#/g) :
+        text.replace(/(#[\w\u4e00-\u9fa5]{1,20}#)/g, marked) :
         text;
         
     text = ($('#rows-reverse')[0].checked) ?
