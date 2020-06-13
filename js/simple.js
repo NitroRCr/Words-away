@@ -12,8 +12,8 @@ $('.start-mixin').click(function () {
         text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=]*)?)/g, marked) :
         text;
     text = (coolapkMode) ?
-        text.replace(/(#[\w\u4e00-\u9fa5]{1,20}?#)/g, marked)
-        .replace(/(@[\w\u4e00-\u9fa5]{1,20})/g, marked) :
+        text.replace(/(#[\w\u4e00-\u9fa5\u3040-\u30ff]{1,20}?#)/g, marked)
+        .replace(/(@[\w\u4e00-\u9fa5\u3040-\u30ff]{1,15} ?)/g, marked) :
         text;
     text = ($('#rows-reverse')[0].checked) ?
         wordsAway.rowsReverse(text, true) :
@@ -30,7 +30,7 @@ $('.start-mixin').click(function () {
     text = ($('#letters-font')[0].checked) ?
         wordsAway.font(text, $('.font-selector')[0].value, true) :
         text;
-    text = text.replace(/\ue0dc([^\s]+?)\ue0dd/g, '$1');
+    text = text.replace(/\ue0dc([^\s]+? ?)\ue0dd/g, '$1');
 
     var setText = () => {
         $('pre.result').text(text);
