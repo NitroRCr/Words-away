@@ -45,11 +45,6 @@ h2 {
     margin-top: 0;
 }
 
-.input-field.hidden {
-    display: none;
-}
-
-
 #busuanzi_container_site_pv {
     position: absolute;
     right: 5px;

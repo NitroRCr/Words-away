@@ -9,7 +9,7 @@ $('.start-mixin').click(function () {
         coolapkMode = $('#coolapk-mode')[0].checked;
     var marked = '\ue0dc$1\ue0dd';
     text = (missUrl) ?
-        text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g, marked) :
+        text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=]*)?)/g, marked) :
         text;
     text = (coolapkMode) ?
         text.replace(/(#[\w\u4e00-\u9fa5]{1,20}?#)/g, marked)
@@ -27,8 +27,8 @@ $('.start-mixin').click(function () {
     text = ($('#vertical-text')[0].checked) ?
         wordsAway.verticalText(text, parseInt($('#max-col').val()), parseInt($('#min-row').val())) :
         text;
-    text = ($('#fake-normal')[0].checked) ?
-        wordsAway.sameShape(text, missBrackets) :
+    text = ($('#letters-font')[0].checked) ?
+        wordsAway.font(text, $('.font-selector')[0].value, true) :
         text;
     text = text.replace(/\ue0dc([^\s]+?)\ue0dd/g, '$1');
 
@@ -100,7 +100,7 @@ $('#vertical-text').click(function () {
         $('#miss-url').attr('disabled', 'disabled')[0].checked = false;
         $('#coolapk-mode').attr('disabled', 'disabled')[0].checked = false;
         $('#shorten-url').attr('disabled', 'disabled')[0].checked = false;
-        $('.input-field.hidden').css('display', 'inline-block');
+        $('.vertical-options').css('display', 'block');
     } else {
         $('#rows-reverse').removeAttr('disabled');
         $('#zero-width-space').removeAttr('disabled')[0].checked = true;
@@ -108,9 +108,16 @@ $('#vertical-text').click(function () {
         $('#miss-url').removeAttr('disabled')[0].checked = true;
         $('#coolapk-mode').removeAttr('disabled')[0].checked = true;
         $('#shorten-url').removeAttr('disabled');
-        $('.input-field.hidden').css('display', 'none');
+        $('.vertical-options').css('display', 'none');
     }
 });
+$('#letters-font').click(function() {
+    if ($(this)[0].checked) {
+        $('.font-select-field').css('display', 'block');
+    } else {
+        $('.font-select-field').css('display', 'none');
+    }
+})
 
 new ClipboardJS('.to-copy');
 $('.to-copy').click(function () {
@@ -118,3 +125,7 @@ $('.to-copy').click(function () {
         html: '已复制'
     });
 });
+
+$().ready(function() {
+    $('.font-selector').formSelect();
+})

@@ -68,12 +68,12 @@
                         <div class="col s12 m6">
                             <h3>简单、有效</h3>
                             <p>一键式处理，能有效避开大部分的关键词检测<br>
-                            并且尽量不影响文本的可读性</p>
+                                并且尽量不影响文本的可读性</p>
                         </div>
                         <div class="col s12 m6">
                             <h3>适合酷安现状</h3>
                             <p>众所周知，酷安的文本检测十分强大却经常误屏蔽。<br>
-                            此工具为酷安而生，适合酷安现状</p>
+                                此工具为酷安而生，适合酷安现状</p>
                         </div>
                     </div>
                     <div class="row">
@@ -121,13 +121,32 @@
                             <textarea id="textin" class="materialize-textarea"></textarea>
                             <label for="textin">输入文本</label>
                         </div>
-                        <div class="input-field col s6 inline hidden">
-                            <input id="max-col" type="text" value="12">
-                            <label for="max-col">最大列数</label>
+                        <div class="vertical-options" style="display: none;">
+                            <div class="input-field col s6 inline">
+                                <input id="max-col" type="text" value="12">
+                                <label for="max-col">最大列数</label>
+                            </div>
+                            <div class="input-field col s6 inline">
+                                <input id="min-row" type="text" value="5">
+                                <label for="min-row">最小行数</label>
+                            </div>
                         </div>
-                        <div class="input-field col s6 inline hidden">
-                            <input id="min-row" type="text" value="5">
-                            <label for="min-row">最小行数</label>
+                        <div class="input-field col s12 font-select-field" style="display: none;">
+                            <select class="font-selector">
+                                <option value="monospace" selected>𝚖𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+                                <option value="script">𝓈𝒸𝓇𝒾𝓅𝓉</option>
+                                <option value="double-struck">𝕕𝕠𝕦𝕓𝕝𝕖-𝕤𝕥𝕣𝕦𝕔𝕜</option>
+                                <option value="sans-serif">𝗌𝖺𝗇𝗌-𝗌𝖾𝗋𝗂𝖿</option>
+                                <option value="sans-serif-bold">𝘀𝗮𝗻𝘀-𝘀𝗲𝗿𝗶𝗳-𝗯𝗼𝗹𝗱</option>
+                                <option value="sans-serif-italic">𝘴𝘢𝘯𝘴-𝘴𝘦𝘳𝘪𝘧-𝘪𝘵𝘢𝘭𝘪𝘤</option>
+                                <option value="sans-serif-bold-italic">𝙨𝙖𝙣𝙨-𝙨𝙚𝙧𝙞𝙛-𝙗𝙤𝙡𝙙-𝙞𝙩𝙖𝙡𝙞𝙘</option>
+                                <option value="bold">𝐛𝐨𝐥𝐝</option>
+                                <option value="italic">𝑖𝑡𝑎𝑙𝑖𝑐</option>
+                                <option value="bold-italic">𝒃𝒐𝒍𝒅-𝒊𝒕𝒂𝒍𝒊𝒄</option>
+                                <option value="bold-script">𝓫𝓸𝓵𝓭-𝓼𝓬𝓻𝓲𝓹𝓽</option>
+                                <option value="fake-normal">fаkе-ոоrmаӏ</option>
+                            </select>
+                            <label>替换字体</label>
                         </div>
                         <div class="input-field col s12 checkboxs">
                             <div class="switch">
@@ -160,7 +179,7 @@
                                     <span>转为竖向排列（物理）</span>
                                 </label><br>
                                 <label>
-                                    <input type="checkbox" class="filled-in" id="fake-normal" />
+                                    <input type="checkbox" class="filled-in" id="letters-font" />
                                     <span>英文替换</span>
                                 </label><br>
                             </div>
@@ -216,7 +235,7 @@
                         <li>- 无法避开所有的关键词检测，只能避开机器检测</li>
                         <li>- 请低调使用</li>
                         <li>- nhml警告
-                        (酷安小编本人说过用Unicode控制符发送严重违规消息直接永封不解。)
+                            (酷安小编本人说过用Unicode控制符发送严重违规消息直接永封不解。)
                         <li>- 某些模式不能共存</li>
                         <li>- 处理后的文本暂无法直接还原。</li>
                     </ul>

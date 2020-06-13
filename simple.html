@@ -24,19 +24,42 @@
                         <textarea id="textin" class="materialize-textarea"></textarea>
                         <label for="textin">输入文本</label>
                     </div>
-                    <div class="input-field col s6 inline hidden">
-                        <input id="max-col" type="text" value="12">
-                        <label for="max-col">最大列数</label>
+                    <div class="vertical-options" style="display: none;">
+                        <div class="input-field col s6 inline">
+                            <input id="max-col" type="text" value="12">
+                            <label for="max-col">最大列数</label>
+                        </div>
+                        <div class="input-field col s6 inline">
+                            <input id="min-row" type="text" value="5">
+                            <label for="min-row">最小行数</label>
+                        </div>
                     </div>
-                    <div class="input-field col s6 inline hidden">
-                        <input id="min-row" type="text" value="5">
-                        <label for="min-row">最小行数</label>
+                    <div class="input-field col s12 font-select-field" style="display: none;">
+                        <select class="font-selector">
+                            <option value="monospace" selected>𝚖𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+                            <option value="script">𝓈𝒸𝓇𝒾𝓅𝓉</option>
+                            <option value="double-struck">𝕕𝕠𝕦𝕓𝕝𝕖-𝕤𝕥𝕣𝕦𝕔𝕜</option>
+                            <option value="sans-serif">𝗌𝖺𝗇𝗌-𝗌𝖾𝗋𝗂𝖿</option>
+                            <option value="sans-serif-bold">𝘀𝗮𝗻𝘀-𝘀𝗲𝗿𝗶𝗳-𝗯𝗼𝗹𝗱</option>
+                            <option value="sans-serif-italic">𝘴𝘢𝘯𝘴-𝘴𝘦𝘳𝘪𝘧-𝘪𝘵𝘢𝘭𝘪𝘤</option>
+                            <option value="sans-serif-bold-italic">𝙨𝙖𝙣𝙨-𝙨𝙚𝙧𝙞𝙛-𝙗𝙤𝙡𝙙-𝙞𝙩𝙖𝙡𝙞𝙘</option>
+                            <option value="bold">𝐛𝐨𝐥𝐝</option>
+                            <option value="italic">𝑖𝑡𝑎𝑙𝑖𝑐</option>
+                            <option value="bold-italic">𝒃𝒐𝒍𝒅-𝒊𝒕𝒂𝒍𝒊𝒄</option>
+                            <option value="bold-script">𝓫𝓸𝓵𝓭-𝓼𝓬𝓻𝓲𝓹𝓽</option>
+                            <option value="fake-normal">fаkе-ոоrmаӏ</option>
+                        </select>
+                        <label>替换字体</label>
                     </div>
                     <div class="input-field col s12 checkboxs">
                         <div class="switch">
                             <label>
-                                <input type="checkbox" class="filled-in" checked="checked" id="miss-brackets" />
-                                <span>兼容链接和酷安表情</span>
+                                <input type="checkbox" class="filled-in" checked="checked" id="miss-url" />
+                                <span>兼容链接</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" checked="checked" id="coolapk-mode" />
+                                <span>兼容 [表情] #话题# 和 @</span>
                             </label><br>
                             <label>
                                 <input type="checkbox" class="filled-in" id="zero-width-space" checked="checked" />
@@ -59,8 +82,8 @@
                                 <span>转为竖向排列（物理）</span>
                             </label><br>
                             <label>
-                                <input type="checkbox" class="filled-in" id="fake-normal" />
-                                <span>同形字母替换（附加）</span>
+                                <input type="checkbox" class="filled-in" id="letters-font" />
+                                <span>英文替换</span>
                             </label><br>
                         </div>
                         <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">处理</a>
@@ -134,8 +157,6 @@
     <script src="js/simple.js"></script>
     <script src="js/materialize.min.js"></script>
     <script src="https://coolemotion.netlify.com/png-edition/coolapk-emotion-png.min.js"></script>
-    <!--
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
     </script>
--->
 </body>
