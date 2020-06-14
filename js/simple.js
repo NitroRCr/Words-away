@@ -56,8 +56,9 @@ $('.start-mixin').click(function () {
                     $(this).removeClass('disabled');
                 }
             }, 'jsonp').fail(() => {
-                M.toast('短链接请求失败');
+                M.toast({html: '短链接请求失败'});
                 setText();
+                $(this).removeClass('disabled');
             });
         }
     } else {
