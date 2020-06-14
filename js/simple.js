@@ -3,28 +3,34 @@ var wordsAway = new WordsAway();
 $('.start-mixin').click(function () {
     var text = $('#textin').val();
     var mixin = '\u200b';
-    var missBrackets = $('#miss-brackets')[0].checked;
-    text = (missBrackets) ?
-        text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g, '[$1]') :
+    var beforeMark = '\ue0dc',
+        afterMark = '\ue0dd';
+    var missUrl = $('#miss-url')[0].checked,
+        coolapkMode = $('#coolapk-mode')[0].checked;
+    var marked = '\ue0dc$1\ue0dd';
+    text = (missUrl) ?
+        text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=]*)?)/g, marked) :
+        text;
+    text = (coolapkMode) ?
+        text.replace(/(#[\w\u4e00-\u9fa5\u3040-\u30ff]{1,20}?#)/g, marked)
+        .replace(/(@[\w\u4e00-\u9fa5\u3040-\u30ff]{1,15} ?)/g, marked) :
         text;
     text = ($('#rows-reverse')[0].checked) ?
-        wordsAway.rowsReverse(text, missBrackets) :
+        wordsAway.rowsReverse(text, true) :
         text;
     text = ($('#words-reverse')[0].checked) ?
-        wordsAway.wordsReverse(text, missBrackets) :
+        wordsAway.wordsReverse(text, true) :
         text;
     text = ($('#zero-width-space')[0].checked) ?
-        wordsAway.mixin(text, mixin, missBrackets) :
+        wordsAway.mixin(text, mixin, true) :
         text;
     text = ($('#vertical-text')[0].checked) ?
         wordsAway.verticalText(text, parseInt($('#max-col').val()), parseInt($('#min-row').val())) :
         text;
-    text = ($('#fake-normal')[0].checked) ?
-        wordsAway.sameShape(text, missBrackets) :
+    text = ($('#letters-font')[0].checked) ?
+        wordsAway.font(text, $('.font-selector')[0].value, true) :
         text;
-    text = (missBrackets) ?
-        text.replace(/\[(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)\]/g, '$1') :
-        text;
+    text = text.replace(/\ue0dc([^\s]+? ?)\ue0dd/g, '$1');
 
     var setText = () => {
         $('pre.result').text(text);
@@ -34,7 +40,11 @@ $('.start-mixin').click(function () {
     if ($('#shorten-url')[0].checked) {
         var urls = text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g);
         $('pre.result').text('短链接请求中...');
-        urls || setText();
+        if (urls) {
+            $(this).addClass('disabled');
+        } else {
+            setText();
+        }
         for (let i in urls) {
             $.get('https://is.gd/create.php', {
                 'url': urls[i],
@@ -43,10 +53,12 @@ $('.start-mixin').click(function () {
                 text = text.replace(urls[i], data['shorturl']);
                 if (i == urls.length - 1) {
                     setText();
+                    $(this).removeClass('disabled');
                 }
             }, 'jsonp').fail(() => {
-                M.toast('短链接请求失败');
+                M.toast({html: '短链接请求失败'});
                 setText();
+                $(this).removeClass('disabled');
             });
         }
     } else {
@@ -86,18 +98,27 @@ $('#vertical-text').click(function () {
         $('#rows-reverse').attr('disabled', 'disabled')[0].checked = false;
         $('#zero-width-space').attr('disabled', 'disabled')[0].checked = false;
         $('#words-reverse').attr('disabled', 'disabled')[0].checked = false;
-        $('#miss-brackets').attr('disabled', 'disabled')[0].checked = false;
+        $('#miss-url').attr('disabled', 'disabled')[0].checked = false;
+        $('#coolapk-mode').attr('disabled', 'disabled')[0].checked = false;
         $('#shorten-url').attr('disabled', 'disabled')[0].checked = false;
-        $('.input-field.hidden').css('display', 'inline-block');
+        $('.vertical-options').css('display', 'block');
     } else {
         $('#rows-reverse').removeAttr('disabled');
         $('#zero-width-space').removeAttr('disabled')[0].checked = true;
         $('#words-reverse').removeAttr('disabled');
-        $('#miss-brackets').removeAttr('disabled')[0].checked = true;
+        $('#miss-url').removeAttr('disabled')[0].checked = true;
+        $('#coolapk-mode').removeAttr('disabled')[0].checked = true;
         $('#shorten-url').removeAttr('disabled');
-        $('.input-field.hidden').css('display', 'none');
+        $('.vertical-options').css('display', 'none');
     }
 });
+$('#letters-font').click(function() {
+    if ($(this)[0].checked) {
+        $('.font-select-field').css('display', 'block');
+    } else {
+        $('.font-select-field').css('display', 'none');
+    }
+})
 
 new ClipboardJS('.to-copy');
 $('.to-copy').click(function () {
@@ -105,3 +126,7 @@ $('.to-copy').click(function () {
         html: '已复制'
     });
 });
+
+$().ready(function() {
+    $('.font-selector').formSelect();
+})
