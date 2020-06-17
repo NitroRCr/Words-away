@@ -13,7 +13,8 @@ $('.start-mixin').click(function () {
         text;
     text = (coolapkMode) ?
         text.replace(/(#[\w\u4e00-\u9fa5\u3040-\u30ff]{1,20}?#)/g, marked)
-        .replace(/(@[\w\u4e00-\u9fa5\u3040-\u30ff]{1,15} ?)/g, marked) :
+        .replace(/(@[\w\u4e00-\u9fa5\u3040-\u30ff]{1,15} ?)/g, marked)
+        .replace(/(\[[\w\u4e00-\u9fa5]{1,10}?\])/g, marked) :
         text;
     text = ($('#rows-reverse')[0].checked) ?
         wordsAway.rowsReverse(text, true) :
