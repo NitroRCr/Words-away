@@ -27,7 +27,8 @@ pre {
   line-height: 1.7; }
 
 a {
-  color: #7e57c2; }
+  color: #fff;
+  text-decoration: underline; }
 
 h2 {
   font-size: 1.5em;
@@ -135,7 +136,8 @@ a.n-dark {
   padding: 5px 7px;
   border: 1.5px solid white;
   border-radius: 2px;
-  margin-right: 25px; }
+  margin-right: 25px;
+  text-decoration: none; }
 
 footer {
   height: 8em;
