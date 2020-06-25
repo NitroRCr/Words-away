@@ -1,8 +1,10 @@
 # Words-away  
 ## 这个东西是干什么的？
-一个文本处理工具，用于防止对文本的敏感词检测。主要是因为酷安的折叠词太过蜜汁，**例如“申诉”也会被折叠（doge）**所以就有了这个软件。
+一个文本处理工具，用于防止对文本的敏感词检测。主要是因为酷安的折叠词太过蜜汁，**例如“申诉”也会被折叠（doge）**所以就有了这个工具。
 
 设计目标为酷安，理论上所有完整支持Unicode的社区等 都能够使用，但效果不确定。实测对[网易易盾](https://dun.163.com/product/text-detection)的文本检测API有一定效果。
+
+这是网页版，目前还有处于开发阶段的[Android版本](https://github.com/NitroRCr/WordsAway_Android)
 
 ## 原理：
 以下是不同选项的原理
@@ -49,14 +51,14 @@
 + [x] 自动判断链接并绕行
 + [x] 竖向排列模式
 + [x] 更好看的界面
-+ [ ] Android APP
++ [x] Android APP
 ## 已知的问题：
 + 用每行双重反转模式处理之后，当一行文本以多行的形式显示时，那几行的顺序会反转，[详见这里](https://blog.texice.xyz/2020/Anti-Text-Detect/#%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98)。暂时无法解决
 + 用每两字双重反转模式处理之后，当一行文本以多行的形式显示时，有三分之一的概率 上一行的最后一字与下一行的第一个字位置交换。暂时无法解决
 ## 使用：
-+ 链接：[https://wordsaway.texice.xyz](https://wordsaway.texice.xyz)
-+ ~~可以在[Release页面](https://github.com/NitroRCr/Words-away/releases)下载最新的离线版本~~
->1. 打开网页  
++ [在线网页](https://wordsaway.texice.xyz)
++ [Android应用](https://github.com/NitroRCr/WordsAway_Android)
+>1. 打开网页或应用
 >2. 输入或粘贴需要处理的文本  
 >3. 根据需要选中相应的选项。  
 >4. 处理，复制  
