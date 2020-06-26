@@ -12,6 +12,7 @@ function Index() {
         'img/dark-PC-compressed/10.jpg',
         'img/dark-PC-compressed/11.jpg',
         'img/dark-PC-compressed/12.jpg',
+        'img/dark-PC-compressed/13.jpg',
     ];
     this.portBgs = [
         'img/dark-mobile-compressed/0.jpg',
