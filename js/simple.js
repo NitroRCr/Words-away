@@ -1,44 +1,50 @@
 var wordsAway = new WordsAway();
 
-$('.start-mixin').click(function () {
+$('.start-mixin').click(function () {   //处理
     var text = $('#textin').val();
     var mixin = '\u200b';
-    var beforeMark = '\ue0dc',
-        afterMark = '\ue0dd';
     var missUrl = $('#miss-url')[0].checked,
         coolapkMode = $('#coolapk-mode')[0].checked;
     var marked = '\ue0dc$1\ue0dd';
+    //兼容链接
     text = (missUrl) ?
         text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=]*)?)/g, marked) :
         text;
+    //兼容 [表情] #话题# 和 @
     text = (coolapkMode) ?
         text.replace(/(#[\w\u4e00-\u9fa5\u3040-\u30ff]{1,20}?#)/g, marked)
         .replace(/(@[\w\u4e00-\u9fa5\u3040-\u30ff]{1,15} ?)/g, marked)
         .replace(/(\[[\w\u4e00-\u9fa5]{1,10}?\])/g, marked) :
         text;
+    //每行双重反转
     text = ($('#rows-reverse')[0].checked) ?
         wordsAway.rowsReverse(text, true) :
         text;
+    //每两字双重反转
     text = ($('#words-reverse')[0].checked) ?
         wordsAway.wordsReverse(text, true) :
         text;
+    //零宽间隔
     text = ($('#zero-width-space')[0].checked) ?
         wordsAway.mixin(text, mixin, true) :
         text;
+    //转为竖向排列
     text = ($('#vertical-text')[0].checked) ?
         wordsAway.verticalText(text, parseInt($('#max-col').val()), parseInt($('#min-row').val())) :
         text;
+    //替换英文和数字
     text = ($('#letters-font')[0].checked) ?
         wordsAway.font(text, $('.font-selector')[0].value, true) :
         text;
+    //去掉标记
     text = text.replace(/\ue0dc([^\s]+? ?)\ue0dd/g, '$1');
-
+    //输出结果的函数
     var setText = () => {
         $('pre.result').text(text);
         $('.to-copy').attr('data-clipboard-text', text);
     }
-
     if ($('#shorten-url')[0].checked) {
+        //链接转短链接（API）
         var urls = text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g);
         $('pre.result').text('短链接请求中...');
         if (urls) {
@@ -67,6 +73,7 @@ $('.start-mixin').click(function () {
     }
 });
 
+//CheckBox的点击事件
 $('#miss-brackets').click(function () {
     if ($(this)[0].checked) {
         $('#vertical-text')[0].checked = false;
