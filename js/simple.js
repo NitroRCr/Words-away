@@ -8,7 +8,7 @@ $('.start-mixin').click(function () {   //处理
     var marked = '\ue0dc$1\ue0dd';
     //兼容链接
     text = (missUrl) ?
-        text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=]*)?)/g, marked) :
+        text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=+]*)?)/g, marked) :
         text;
     //兼容 [表情] #话题# 和 @
     text = (coolapkMode) ?
@@ -45,7 +45,7 @@ $('.start-mixin').click(function () {   //处理
     }
     if ($('#shorten-url')[0].checked) {
         //链接转短链接（API）
-        var urls = text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?)/g);
+        var urls = text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=+]*)?)/g);
         $('pre.result').text('短链接请求中...');
         if (urls) {
             $(this).addClass('disabled');
