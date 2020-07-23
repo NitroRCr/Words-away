@@ -74,6 +74,13 @@ $('.start-mixin').click(function () {   //处理
 });
 
 //CheckBox的点击事件
+$('#miss-url').click(function() {
+    if ($(this)[0].checked) {
+        $('#shorten-url').removeAttr('disabled');
+    } else {
+        $('#shorten-url').attr('disabled', 'disabled')[0].checked = false;
+    }
+})
 $('#miss-brackets').click(function () {
     if ($(this)[0].checked) {
         $('#vertical-text')[0].checked = false;

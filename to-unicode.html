@@ -20,23 +20,13 @@
                         <textarea id="textin" class="materialize-textarea"></textarea>
                         <label for="textin">输入文本</label>
                     </div>
-                    
-                <!-- text-input backup -->
-                <!--
-                    <div class="vertical-options" style="display: none;">
-                        <div class="input-field col s6 inline">
-                            <input id="max-col" type="text" value="12">
-                            <label for="max-col">最大列数</label>
-                        </div>
-                        <div class="input-field col s6 inline">
-                            <input id="min-row" type="text" value="5">
-                            <label for="min-row">最小行数</label>
-                        </div>
+                    <div class="input-field col s12 inline filter" style="display: none;">
+                        <input id="filter" type="text" value="\w">
+                        <label for="filter">过滤字符</label>
                     </div>
-                -->
-                    
-                <!-- Selector Backup -->
-                <!--
+
+                    <!-- Selector Backup -->
+                    <!--
                     <div class="input-field col s12 font-select-field" style="display: none;">
                         <select class="font-selector">
                             <option value="monospace" selected>𝚖𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
@@ -44,13 +34,16 @@
                         </select>
                         <label>selector</label>
                     </div>
-                -->
-                    
+                    -->
                     <div class="input-field col s12 checkboxs">
                         <div class="switch">
                             <label>
                                 <input type="checkbox" class="filled-in" id="mode2" />
                                 <span>整合代理对</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="if-filter" />
+                                <span>过滤</span>
                             </label><br>
                         </div>
                     </div>
@@ -71,21 +64,21 @@
         <div style="height: 50px;"></div>
     </div>
     <div style="height: 100px;"></div>
-<!--    busuanzi backup-->
-<!--
+    <!--    busuanzi backup-->
+    <!--
     <div>
         <span id="busuanzi_container_site_pv">
             总访问量<span id="busuanzi_value_site_pv"></span>次
         </span>
     </div>
--->
+    -->
     <script src="js/jquery-2.0.2.min.js"></script>
     <script src="js/clipboard.min.js"></script>
     <script src="js/to-unicode.js"></script>
     <script src="js/materialize.min.js"></script>
-<!--    busuanzi backup-->
-<!--
+    <!--    busuanzi backup-->
+    <!--
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
     </script>
--->
+    -->
 </body>

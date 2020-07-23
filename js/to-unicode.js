@@ -1,20 +1,36 @@
 $('.start-mixin').click(function () {
     var text = $('#textin').val();
-    var result = string2unicode(text, $('#mode2')[0].checked);
+    if ($('#if-filter')[0].checked) {
+        var filter = $('#filter').val();
+    } else {
+        var filter = false;
+    }
+    var result = string2unicode(text, $('#mode2')[0].checked, filter);
     $('pre.result').text(result);
     $('.to-copy').attr('data-clipboard-text', result);
 })
 
-function string2unicode(text, mode2 = false) {
+function string2unicode(text, mode2 = false, filter) {
     var result = '';
+    if (filter) {
+        var reg = new RegExp('[' + filter + ']');
+    }
     if (mode2) {
         var list = Array.from(text);
         for (let i of list) {
-            result += ustr(i.codePointAt(0));
+            if (filter && reg.test(i)) {
+                result += i;
+            } else {
+                result += ustr(i.codePointAt(0));
+            }
         }
     } else {
         for (let i in text) {
-            result += ustr(text.charCodeAt(i));
+            if (filter && reg.test(text[i])) {
+                result += text[i];
+            } else {
+                result += ustr(text.charCodeAt(i));
+            }
         }
     }
     return result;
@@ -41,3 +57,11 @@ $('.to-copy').click(function () {
         html: '已复制'
     });
 });
+
+$('#if-filter').click(function() {
+    if($(this)[0].checked) {
+        $('div.filter').css('display', 'block');
+    } else {
+        $('div.filter').css('display', 'none');
+    }
+})
