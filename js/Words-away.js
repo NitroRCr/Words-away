@@ -26,7 +26,7 @@ WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
             let third = (list[j + 2] !== undefined) ?
                 this.toggleBracketsChar(list[j + 2]) :
                 '';
-            result += ('\u200e' + first + '\u202e' + third + second + '\u202c');
+            result += ('\u200e' + first + '\u202e' + third + '\u200b' + second + '\u202c');
         }
         if (i < rows.length - 1) {
             result += '\n';
@@ -55,6 +55,8 @@ WordsAway.prototype.toggleBracketsChar = function (char) {
         (char == '>') ? '<' :
         (char == '【') ? '】' :
         (char == '】') ? '【' :
+        (char == '[') ? ']' :
+        (char == ']') ? '[' :
         char;
 }
 WordsAway.prototype.verticalText = function (text, maxCol = 12, minHeight = 10) {
