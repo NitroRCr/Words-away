@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>隐藏字符 - WordsAway</title>
+    <link rel="icon" href="img/WordsAway_Black.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" href="css/materialize-n.min.css">
+    <link rel="stylesheet" href="css/simple.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="font-weight: bold; font-size: 2em">隐藏字符</h1>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12 text-in">
+                        <textarea id="textin" class="materialize-textarea"></textarea>
+                        <label for="textin">输入文本</label>
+                    </div>
+
+                    <!-- Selector Backup -->
+                    <!--
+                    <div class="input-field col s12 font-select-field" style="display: none;">
+                        <select class="font-selector">
+                            <option value="monospace" selected>𝚖𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+                            <option value="script">𝓈𝒸𝓇𝒾𝓅𝓉</option>
+                        </select>
+                        <label>selector</label>
+                    </div>
+                    -->
+                    <div class="input-field col s12 checkboxs">
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" class="filled-in" id="back-mode" />
+                                <span>还原模式</span>
+                            </label><br>
+                        </div>
+                    </div>
+                    <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">转换</a>
+                </div>
+            </form>
+        </div>
+        <div style="height: 50px"></div>
+        <p style="font-weight: bold">Result:</p>
+        <pre class="result">请先转换<i class="c-shounuehuaji"></i>
+</pre>
+        <button data-clipboard-text="请先转换" class="waves-effect waves-light btn-small to-copy">复制</button>
+        <div style="height: 50px"></div>
+        <p>
+            <a href="https://github.com/NitroRCr/Words-away">Github</a><br>
+            <a href="index.html">Home</a>
+        </p>
+        <div style="height: 50px;"></div>
+    </div>
+    <div style="height: 100px;"></div>
+    <!--    busuanzi backup-->
+    <!--
+    <div>
+        <span id="busuanzi_container_site_pv">
+            总访问量<span id="busuanzi_value_site_pv"></span>次
+        </span>
+    </div>
+    -->
+    <script src="js/jquery-2.0.2.min.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/hide.js"></script>
+    <!--    busuanzi backup-->
+    <!--
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    -->
+</body>

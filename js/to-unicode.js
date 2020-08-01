@@ -64,4 +64,4 @@ $('#if-filter').click(function() {
     } else {
         $('div.filter').css('display', 'none');
     }
-})
+});
