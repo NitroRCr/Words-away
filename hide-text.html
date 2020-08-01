@@ -20,6 +20,10 @@
                         <textarea id="textin" class="materialize-textarea"></textarea>
                         <label for="textin">输入文本</label>
                     </div>
+                    <div class="input-field col s12 inline password" style="display: none;">
+                        <input id="password" type="password" value="">
+                        <label for="password">密码</label>
+                    </div>
 
                     <!-- Selector Backup -->
                     <!--
@@ -36,6 +40,10 @@
                             <label>
                                 <input type="checkbox" class="filled-in" id="back-mode" />
                                 <span>还原模式</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="if-encrypt" />
+                                <span>加密</span>
                             </label><br>
                         </div>
                     </div>
@@ -67,6 +75,7 @@
     <script src="js/jquery-2.0.2.min.js"></script>
     <script src="js/clipboard.min.js"></script>
     <script src="js/materialize.min.js"></script>
+    <script src="js/seedrandom.min.js"></script>
     <script src="js/hide.js"></script>
     <!--    busuanzi backup-->
     <!--
