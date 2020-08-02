@@ -38,13 +38,18 @@
                     <div class="input-field col s12 checkboxs">
                         <div class="switch">
                             <label>
-                                <input type="checkbox" class="filled-in" id="back-mode" />
-                                <span>还原模式</span>
+                                <input type="checkbox" checked="checked" class="filled-in" id="if-compress" />
+                                <span>压缩</span>
                             </label><br>
                             <label>
                                 <input type="checkbox" class="filled-in" id="if-encrypt" />
                                 <span>加密</span>
                             </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="back-mode" />
+                                <span>还原模式</span>
+                            </label><br>
+
                         </div>
                     </div>
                     <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">转换</a>
@@ -76,6 +81,7 @@
     <script src="js/clipboard.min.js"></script>
     <script src="js/materialize.min.js"></script>
     <script src="js/seedrandom.min.js"></script>
+    <script src="js/pako.min.js"></script>
     <script src="js/hide.js"></script>
     <!--    busuanzi backup-->
     <!--
