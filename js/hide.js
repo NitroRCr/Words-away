@@ -7,7 +7,6 @@ function FromSeed(symbols, seed, length) {
     this.undictGroup = this.getUndictGroup();
     this.order = this.getOrder();
     this.unorder = this.getUnorder();
-    console.log(string2unicode(this.dictGroup[4][3]));
 }
 FromSeed.prototype.fakeShuffle = function (arr, random) {
     var length = arr.length,
@@ -93,7 +92,6 @@ function WordsDeep() {
 }
 WordsDeep.prototype.hide = function (binary, password) {
     var fromSeed = new FromSeed(this.defaultSymbols, password, binary.length * 2);
-    console.log(fromSeed);
     var first = '';
     for (let i in binary) {
         let code16 = binary.charCodeAt(i).toString(16);
@@ -112,7 +110,6 @@ WordsDeep.prototype.hide = function (binary, password) {
 }
 WordsDeep.prototype.unhide = function (hidden, password) {
     var fromSeed = new FromSeed(this.defaultSymbols, password, hidden.length);
-    console.log(fromSeed);
     var unordered = [];
     for (let i in fromSeed.unorder) {
         unordered[i] = hidden[fromSeed.unorder[i]];
@@ -151,6 +148,7 @@ $('.to-copy').click(function () {
 
 var wd = new WordsDeep();
 $('.start-mixin').click(function () {
+    console.time('process');
     var text = $('#textin').val();
     if ($('#if-encrypt')[0].checked) {
         var password = $('#password').val();
@@ -164,7 +162,12 @@ $('.start-mixin').click(function () {
         if (ifCompress) {
             let binaryStr = wd.unhide(hiddenStr, password);
             console.log(binaryStr);
-            var factStr = wd.uncompress(binaryStr);
+            try {
+                var factStr = wd.uncompress(binaryStr);
+            } catch (e) {
+                M.toast({html: "解密失败"});
+                throw e;
+            }
         } else {
             var factStr = wd.unhide(hiddenStr, password);
         }
@@ -173,12 +176,12 @@ $('.start-mixin').click(function () {
         if (ifCompress) {
             text = wd.compress(text);
         };
-        console.log('compressed: ' + text);
         text = wd.hide(text, password);
     }
     result = ' ' + text + ' ';
     $('pre.result').text(result);
     $('.to-copy').attr('data-clipboard-text', result);
+    console.timeEnd('process');
 });
 
 $('#if-encrypt').click(function () {
