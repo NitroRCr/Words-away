@@ -88,56 +88,109 @@ function WordsDeep() {
         '\u206e',
         '\u206f'
     ];
-    this.symbolsReg = /[\u200b-\u200f\u202a-\u202d\u2060-\u206f]+/;
+    this.symbolsReg = /\u202d([\u200b-\u200f\u202a-\u202d\u2060-\u206f]+)\u202d/;
 }
-WordsDeep.prototype.hide = function (binary, password) {
-    var fromSeed = new FromSeed(this.defaultSymbols, password, binary.length * 2);
+WordsDeep.prototype.hexStrToHidden = function (hexStr, password) {
+    var fromSeed = new FromSeed(this.defaultSymbols, password, hexStr.length);
     var first = '';
-    for (let i in binary) {
-        let code16 = binary.charCodeAt(i).toString(16);
-        if (code16.length < 2) {
-            code16 = '0' + code16;
-        }
-        for (let j of code16) {
-            first += fromSeed.dictGroup[i%16][j];
-        }
+    for (let i in hexStr) {
+        first += fromSeed.dictGroup[i % 16][hexStr[i]];
     }
-    var second = [];
+    var hidden = [];
     for (let i in fromSeed.order) {
-        second[i] = first[fromSeed.order[i]];
+        hidden[i] = first[fromSeed.order[i]];
     }
-    return second.join("");
+    return hidden.join('');
 }
-WordsDeep.prototype.unhide = function (hidden, password) {
+WordsDeep.prototype.hiddenToHexStr = function (hidden, password) {
     var fromSeed = new FromSeed(this.defaultSymbols, password, hidden.length);
     var unordered = [];
     for (let i in fromSeed.unorder) {
         unordered[i] = hidden[fromSeed.unorder[i]];
     }
     unordered = unordered.join('');
-    var binary = ''
-    for (let i = 0; i < unordered.length; i += 2) {
-        let undict = fromSeed.undictGroup[(i/2)%16];
-        let code16 = undict[unordered[i]] + undict[unordered[i + 1]];
-        binary += String.fromCharCode(parseInt(code16, 16));
+    var hexStr = '';
+    for (let i = 0; i < unordered.length; i++) {
+        hexStr += fromSeed.undictGroup[i % 16][unordered[i]];
     }
-    return binary;
+    return hexStr;
 }
+WordsDeep.prototype.strToHexStr = function (str) {
+    const code = encodeURIComponent(str);
+    var hexStr = '';
+    for (var i = 0; i < code.length; i++) {
+        const c = code.charAt(i);
+        if (c === '%') {
+            const hex = code.charAt(i + 1) + code.charAt(i + 2);
+            hexStr += hex;
+            i += 2;
+        } else hexStr += (c.charCodeAt(0).toString(16));
+    }
+    return hexStr.toLowerCase();
+}
+WordsDeep.prototype.binStrToHexStr = function (binStr) {
+    var hexStr = '';
+    for (let i in binStr) {
+        let hex = binStr.charCodeAt(i).toString(16);
+        if (hex.length == 1) {
+            hex = '0' + hex;
+        }
+        hexStr += hex;
+    }
+    return hexStr;
+}
+WordsDeep.prototype.hexStrToStr = function (hexStr) {
+    var encoded = "";
+    for (var i = 0; i < hexStr.length; i += 2) {
+        encoded += '%' + hexStr[i] + hexStr[i + 1];
+    }
+    return decodeURIComponent(encoded);
+}
+WordsDeep.prototype.hexStrToBinStr = function (hexStr) {
+    var binStr = '';
+    for (let i = 0; i < hexStr.length; i += 2) {
+        binStr += String.fromCharCode(parseInt(hexStr.slice(i, i + 2), 16));
+    }
+    return binStr;
+}
+WordsDeep.prototype.hideWithCompress = function (str, password) {
+    var binStr = this.compress(str);
+    var hexStr = this.binStrToHexStr(binStr);
+    var hidden = this.hexStrToHidden(hexStr, password);
+    return hidden;
+}
+WordsDeep.prototype.hideWithUtf8 = function (str, password) {
+    var hexStr = this.strToHexStr(str);
+    var hidden = this.hexStrToHidden(hexStr, password);
+    return hidden;
+}
+WordsDeep.prototype.unhideWithCompress = function (hidden, password) {
+    var hexStr = this.hiddenToHexStr(hidden, password);
+    var binStr = this.hexStrToBinStr(hexStr);
+    var str = this.uncompress(binStr);
+    return str;
+}
+WordsDeep.prototype.unhideWithUtf8 = function (hidden, password) {
+    var hexStr = this.hiddenToHexStr(hidden, password);
+    var str = this.hexStrToStr(hexStr);
+    return str;
+}
+WordsDeep.prototype.compress = function (str) {
+    return pako.gzip(str, {
+        to: 'string'
+    });
+}
+WordsDeep.prototype.uncompress = function (binStr) {
+    return pako.ungzip(binStr, {
+        to: 'string'
+    });
+}
+
 const invertKeyValues = obj =>
     Object.keys(obj).reduce((acc, key) => {
         acc[obj[key]] = key;
         return acc;
     }, {});
-WordsDeep.prototype.compress = function (text) {
-    return pako.gzip(text, {
-        to: 'string'
-    });
-}
-WordsDeep.prototype.uncompress = function (binary) {
-    return pako.ungzip(binary, {
-        to: 'string'
-    });
-}
 
 new ClipboardJS('.to-copy');
 $('.to-copy').click(function () {
@@ -158,29 +211,39 @@ $('.start-mixin').click(function () {
     var back = $('#back-mode')[0].checked;
     var ifCompress = $('#if-compress')[0].checked;
     if (back) {
-        let hiddenStr = text.match(wd.symbolsReg)[0];
-        if (ifCompress) {
-            let binaryStr = wd.unhide(hiddenStr, password);
-            console.log(binaryStr);
-            try {
-                var factStr = wd.uncompress(binaryStr);
-            } catch (e) {
-                M.toast({html: "解密失败"});
-                throw e;
-            }
+        let match = text.match(wd.symbolsReg);
+        let hidden;
+        if (match) {
+            hidden = match[1];
         } else {
-            var factStr = wd.unhide(hiddenStr, password);
+            M.toast({
+                html: '未发现隐藏文本'
+            });
+            return;
         }
-        text = text.replace(hiddenStr, factStr);
+        try {
+            if (ifCompress) {
+                var str = wd.unhideWithCompress(hidden, password);
+            } else {
+                var str = wd.unhideWithUtf8(hidden, password);
+            }
+        } catch (e) {
+            M.toast({
+                html: "解密失败"
+            });
+            throw e;
+        }
+        text = text.replace(match[0], str);
     } else {
         if (ifCompress) {
-            text = wd.compress(text);
-        };
-        text = wd.hide(text, password);
+            text = wd.hideWithCompress(text, password);
+        } else {
+            text = wd.hideWithUtf8(text, password);
+        }
+        text = '\u0020\u202d' + text + '\u202d\u0020';
     }
-    result = ' ' + text + ' ';
-    $('pre.result').text(result);
-    $('.to-copy').attr('data-clipboard-text', result);
+    $('pre.result').text(text);
+    $('.to-copy').attr('data-clipboard-text', text);
     console.timeEnd('process');
 });
 
