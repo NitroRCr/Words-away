@@ -61,7 +61,7 @@ FromSeed.prototype.getUnorder = function () {
     return invertKeyValues(this.order);
 }
 
-function WordsDeep() {
+function WordsHide() {
     this.defaultSymbols = [
         '\u200b',
         '\u200c',
@@ -90,7 +90,7 @@ function WordsDeep() {
     ];
     this.symbolsReg = /\u202d([\u200b-\u200f\u202a-\u202d\u2060-\u206f]+)\u202d/;
 }
-WordsDeep.prototype.hexStrToHidden = function (hexStr, password) {
+WordsHide.prototype.hexStrToHidden = function (hexStr, password) {
     var fromSeed = new FromSeed(this.defaultSymbols, password, hexStr.length);
     var first = '';
     for (let i in hexStr) {
@@ -102,7 +102,7 @@ WordsDeep.prototype.hexStrToHidden = function (hexStr, password) {
     }
     return hidden.join('');
 }
-WordsDeep.prototype.hiddenToHexStr = function (hidden, password) {
+WordsHide.prototype.hiddenToHexStr = function (hidden, password) {
     var fromSeed = new FromSeed(this.defaultSymbols, password, hidden.length);
     var unordered = [];
     for (let i in fromSeed.unorder) {
@@ -115,7 +115,7 @@ WordsDeep.prototype.hiddenToHexStr = function (hidden, password) {
     }
     return hexStr;
 }
-WordsDeep.prototype.strToHexStr = function (str) {
+WordsHide.prototype.strToHexStr = function (str) {
     const code = encodeURIComponent(str);
     var hexStr = '';
     for (var i = 0; i < code.length; i++) {
@@ -128,7 +128,7 @@ WordsDeep.prototype.strToHexStr = function (str) {
     }
     return hexStr.toLowerCase();
 }
-WordsDeep.prototype.binStrToHexStr = function (binStr) {
+WordsHide.prototype.binStrToHexStr = function (binStr) {
     var hexStr = '';
     for (let i in binStr) {
         let hex = binStr.charCodeAt(i).toString(16);
@@ -139,48 +139,48 @@ WordsDeep.prototype.binStrToHexStr = function (binStr) {
     }
     return hexStr;
 }
-WordsDeep.prototype.hexStrToStr = function (hexStr) {
+WordsHide.prototype.hexStrToStr = function (hexStr) {
     var encoded = "";
     for (var i = 0; i < hexStr.length; i += 2) {
         encoded += '%' + hexStr[i] + hexStr[i + 1];
     }
     return decodeURIComponent(encoded);
 }
-WordsDeep.prototype.hexStrToBinStr = function (hexStr) {
+WordsHide.prototype.hexStrToBinStr = function (hexStr) {
     var binStr = '';
     for (let i = 0; i < hexStr.length; i += 2) {
         binStr += String.fromCharCode(parseInt(hexStr.slice(i, i + 2), 16));
     }
     return binStr;
 }
-WordsDeep.prototype.hideWithCompress = function (str, password) {
+WordsHide.prototype.hideWithCompress = function (str, password) {
     var binStr = this.compress(str);
     var hexStr = this.binStrToHexStr(binStr);
     var hidden = this.hexStrToHidden(hexStr, password);
     return hidden;
 }
-WordsDeep.prototype.hideWithUtf8 = function (str, password) {
+WordsHide.prototype.hideWithUtf8 = function (str, password) {
     var hexStr = this.strToHexStr(str);
     var hidden = this.hexStrToHidden(hexStr, password);
     return hidden;
 }
-WordsDeep.prototype.unhideWithCompress = function (hidden, password) {
+WordsHide.prototype.unhideWithCompress = function (hidden, password) {
     var hexStr = this.hiddenToHexStr(hidden, password);
     var binStr = this.hexStrToBinStr(hexStr);
     var str = this.uncompress(binStr);
     return str;
 }
-WordsDeep.prototype.unhideWithUtf8 = function (hidden, password) {
+WordsHide.prototype.unhideWithUtf8 = function (hidden, password) {
     var hexStr = this.hiddenToHexStr(hidden, password);
     var str = this.hexStrToStr(hexStr);
     return str;
 }
-WordsDeep.prototype.compress = function (str) {
+WordsHide.prototype.compress = function (str) {
     return pako.gzip(str, {
         to: 'string'
     });
 }
-WordsDeep.prototype.uncompress = function (binStr) {
+WordsHide.prototype.uncompress = function (binStr) {
     return pako.ungzip(binStr, {
         to: 'string'
     });
@@ -199,7 +199,7 @@ $('.to-copy').click(function () {
     });
 });
 
-var wd = new WordsDeep();
+var wh = new WordsHide();
 $('.start-mixin').click(function () {
     console.time('process');
     var text = $('#textin').val();
@@ -211,7 +211,7 @@ $('.start-mixin').click(function () {
     var back = $('#back-mode')[0].checked;
     var ifCompress = $('#if-compress')[0].checked;
     if (back) {
-        let match = text.match(wd.symbolsReg);
+        let match = text.match(wh.symbolsReg);
         let hidden;
         if (match) {
             hidden = match[1];
@@ -223,9 +223,9 @@ $('.start-mixin').click(function () {
         }
         try {
             if (ifCompress) {
-                var str = wd.unhideWithCompress(hidden, password);
+                var str = wh.unhideWithCompress(hidden, password);
             } else {
-                var str = wd.unhideWithUtf8(hidden, password);
+                var str = wh.unhideWithUtf8(hidden, password);
             }
         } catch (e) {
             M.toast({
@@ -236,9 +236,9 @@ $('.start-mixin').click(function () {
         text = text.replace(match[0], str);
     } else {
         if (ifCompress) {
-            text = wd.hideWithCompress(text, password);
+            text = wh.hideWithCompress(text, password);
         } else {
-            text = wd.hideWithUtf8(text, password);
+            text = wh.hideWithUtf8(text, password);
         }
         text = '\u0020\u202d' + text + '\u202d\u0020';
     }
