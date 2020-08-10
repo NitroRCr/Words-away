@@ -80,10 +80,6 @@ h3 {
           .parallax-stage .main > .row .container.dark .head,
           .parallax-stage .main .route .container.dark .head {
             color: #fff; }
-        .parallax-stage .main > .row .container.n-light,
-        .parallax-stage .main .route .container.n-light {
-          color: #555;
-          padding: 20px 0; }
       .parallax-stage .main > .row .bg-container,
       .parallax-stage .main .route .bg-container {
         transform-style: preserve-3d;

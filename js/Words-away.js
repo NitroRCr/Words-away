@@ -165,7 +165,22 @@ WordsAway.prototype.styles = {
         'sans-serif-bold': Array.from('𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵'),
     },
     marks: {
-        'normal': ['\\?', '\\.', ',', '!', '\\&',  '"'],
-        'reverse': ['¿','˙',"'",'¡','⅋',',,'],
+        'normal': ['\\?', '\\.', ',', '!', '\\&', '"'],
+        'reverse': ['¿', '˙', "'", '¡', '⅋', ',,'],
     },
+}
+WordsAway.prototype.back = function (text, marks) {
+    text = text.replace(/[\u200b\u200e]/g, '');
+    var reverseds = text.match(/\u202e(.*?)\u202c?(?<=\u202c).*$/gm);
+    if (!reverseds) {
+        return text;
+    }
+    for (let i of reverseds) {
+        let match = i.match(/\u202e(.*?)\u202c?(?<=\u202c).*$/m);
+        let last = (/\u202c/.test(i)) ?
+            '' :
+            '\n';
+        text = text.replace(i, this.toggleBrackets(this.stringListed(match[1], marks).reverse().join(''), marks) + last);
+    }
+    return text;
 }
