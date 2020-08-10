@@ -118,40 +118,48 @@
                 <div class="container light">
                     <form class="col s12">
                         <h2>Start</h2>
-                        <div class="input-field col s12 text-in">
-                            <textarea id="textin" class="materialize-textarea"></textarea>
-                            <label for="textin">输入文本</label>
-                        </div>
-                        <div class="input-field col s12 text-in tohide-text" style="display: none;">
-                            <textarea id="tohide-text" class="materialize-textarea"></textarea>
-                            <label for="tohide-text">需隐藏的文本</label>
-                        </div>
-                        <div class="vertical-options" style="display: none;">
-                            <div class="input-field col s6 inline">
-                                <input id="max-col" type="text" value="12">
-                                <label for="max-col">最大列数</label>
+                        <div class="process-fields">
+                            <div class="input-field col s12 text-in">
+                                <textarea id="textin" class="materialize-textarea"></textarea>
+                                <label for="textin">输入文本</label>
                             </div>
-                            <div class="input-field col s6 inline">
-                                <input id="min-row" type="text" value="5">
-                                <label for="min-row">最小行数</label>
+                            <div class="input-field col s12 text-in tohide-text" style="display: none;">
+                                <textarea id="tohide-text" class="materialize-textarea"></textarea>
+                                <label for="tohide-text">需隐藏的文本</label>
+                            </div>
+                            <div class="vertical-options" style="display: none;">
+                                <div class="input-field col s6 inline">
+                                    <input id="max-col" type="text" value="12">
+                                    <label for="max-col">最大列数</label>
+                                </div>
+                                <div class="input-field col s6 inline">
+                                    <input id="min-row" type="text" value="5">
+                                    <label for="min-row">最小行数</label>
+                                </div>
+                            </div>
+                            <div class="input-field col s12 font-select-field" style="display: none;">
+                                <select class="font-selector">
+                                    <option value="monospace" selected>𝚖𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+                                    <option value="script">𝓈𝒸𝓇𝒾𝓅𝓉</option>
+                                    <option value="double-struck">𝕕𝕠𝕦𝕓𝕝𝕖-𝕤𝕥𝕣𝕦𝕔𝕜</option>
+                                    <option value="sans-serif">𝗌𝖺𝗇𝗌-𝗌𝖾𝗋𝗂𝖿</option>
+                                    <option value="sans-serif-bold">𝘀𝗮𝗻𝘀-𝘀𝗲𝗿𝗶𝗳-𝗯𝗼𝗹𝗱</option>
+                                    <option value="sans-serif-italic">𝘴𝘢𝘯𝘴-𝘴𝘦𝘳𝘪𝘧-𝘪𝘵𝘢𝘭𝘪𝘤</option>
+                                    <option value="sans-serif-bold-italic">𝙨𝙖𝙣𝙨-𝙨𝙚𝙧𝙞𝙛-𝙗𝙤𝙡𝙙-𝙞𝙩𝙖𝙡𝙞𝙘</option>
+                                    <option value="bold">𝐛𝐨𝐥𝐝</option>
+                                    <option value="italic">𝑖𝑡𝑎𝑙𝑖𝑐</option>
+                                    <option value="bold-italic">𝒃𝒐𝒍𝒅-𝒊𝒕𝒂𝒍𝒊𝒄</option>
+                                    <option value="bold-script">𝓫𝓸𝓵𝓭-𝓼𝓬𝓻𝓲𝓹𝓽</option>
+                                    <option value="fake-normal">fаkе-ոоrmаӏ</option>
+                                </select>
+                                <label>替换字体</label>
                             </div>
                         </div>
-                        <div class="input-field col s12 font-select-field" style="display: none;">
-                            <select class="font-selector">
-                                <option value="monospace" selected>𝚖𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
-                                <option value="script">𝓈𝒸𝓇𝒾𝓅𝓉</option>
-                                <option value="double-struck">𝕕𝕠𝕦𝕓𝕝𝕖-𝕤𝕥𝕣𝕦𝕔𝕜</option>
-                                <option value="sans-serif">𝗌𝖺𝗇𝗌-𝗌𝖾𝗋𝗂𝖿</option>
-                                <option value="sans-serif-bold">𝘀𝗮𝗻𝘀-𝘀𝗲𝗿𝗶𝗳-𝗯𝗼𝗹𝗱</option>
-                                <option value="sans-serif-italic">𝘴𝘢𝘯𝘴-𝘴𝘦𝘳𝘪𝘧-𝘪𝘵𝘢𝘭𝘪𝘤</option>
-                                <option value="sans-serif-bold-italic">𝙨𝙖𝙣𝙨-𝙨𝙚𝙧𝙞𝙛-𝙗𝙤𝙡𝙙-𝙞𝙩𝙖𝙡𝙞𝙘</option>
-                                <option value="bold">𝐛𝐨𝐥𝐝</option>
-                                <option value="italic">𝑖𝑡𝑎𝑙𝑖𝑐</option>
-                                <option value="bold-italic">𝒃𝒐𝒍𝒅-𝒊𝒕𝒂𝒍𝒊𝒄</option>
-                                <option value="bold-script">𝓫𝓸𝓵𝓭-𝓼𝓬𝓻𝓲𝓹𝓽</option>
-                                <option value="fake-normal">fаkе-ոоrmаӏ</option>
-                            </select>
-                            <label>替换字体</label>
+                        <div class="back-fields" style="display: none;">
+                            <div class="input-field col s12 back-text-in">
+                                <textarea id="back-textin" class="materialize-textarea"></textarea>
+                                <label for="back-textin">输入文本</label>
+                            </div>
                         </div>
                         <div class="input-field col s12 checkboxs">
                             <div class="switch">

@@ -94,10 +94,8 @@ $('.start-mixin').click(function () { //处理
 
 });
 
-
-
 function backMode() {
-    var text = $('#textin').val();
+    var text = $('#back-textin').val();
     var match = text.match(wordsHide.symbolsReg);
     if (match) {
         var hidden = match[1];
@@ -217,9 +215,13 @@ $('#back-mode').click(function () {
         $('div.common-cb').css('display', 'none');
         $('div.more-cb > label').css('display', 'none');
         $('label.back-mode').css('display', 'block');
+        $('div.process-fields').css('display', 'none');
+        $('div.back-fields').css('display', 'block');
     } else {
         $('div.common-cb').css('display', 'block');
         $('div.more-cb > label').css('display', 'block');
+        $('div.process-fields').css('display', 'block');
+        $('div.back-fields').css('display', 'none');
     }
 });
 

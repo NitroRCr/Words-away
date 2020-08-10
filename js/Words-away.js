@@ -171,16 +171,21 @@ WordsAway.prototype.styles = {
 }
 WordsAway.prototype.back = function (text, marks) {
     text = text.replace(/[\u200b\u200e]/g, '');
-    var reverseds = text.match(/\u202e(.*?)\u202c?(?<=\u202c).*$/gm);
-    if (!reverseds) {
+    var one = text.match(/(?<=\u202e).*?(?=\u202c)/g);
+    var two = text.match(/(?<=\u202e)[^\n\r\u202c]*$/gm);
+    var reversed = [];
+    if (one) {
+        reversed = reversed.concat(one);
+    }
+    if (two) {
+        reversed = reversed.concat(two);
+    }
+    if (reversed.length == 0) {
         return text;
     }
-    for (let i of reverseds) {
-        let match = i.match(/\u202e(.*?)\u202c?(?<=\u202c).*$/m);
-        let last = (/\u202c/.test(i)) ?
-            '' :
-            '\n';
-        text = text.replace(i, this.toggleBrackets(this.stringListed(match[1], marks).reverse().join(''), marks) + last);
+    for (let i of reversed) {
+        text = text.replace(i, this.toggleBrackets(this.stringListed(i, marks).reverse().join(''), marks))
+            .replace(/[\u202e\u202c]/g, '');
     }
     return text;
 }
