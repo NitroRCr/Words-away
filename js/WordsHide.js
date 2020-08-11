@@ -1,5 +1,5 @@
 function WordsHide() {
-    this.defaultSymbols = [
+    this.SYMBOLS = [
         '\u200b',
         '\u200c',
         '\u200d',
@@ -25,10 +25,14 @@ function WordsHide() {
         '\u206e',
         '\u206f'
     ];
-    this.symbolsReg = /\u202d([\u200b-\u200f\u202a-\u202c\u202e\u2060-\u206f]+)\u202d/;
+    this.SEP_MARK = '\u202d';
+    this.COMPRESS_MARK = '\u200b';
+    this.UTF8_MARK = '\u200c';
+    this.SYMBOL_REG = /\u202d(\u200b|\u200c)\u202d([\u200b-\u200f\u202a-\u202c\u202e\u2060-\u206f]+)\u202d/;
+
 }
 WordsHide.prototype.hexStrToHidden = function (hexStr, password) {
-    var fromSeed = new FromSeed(this.defaultSymbols, password, hexStr.length);
+    var fromSeed = new FromSeed(this.SYMBOLS, password, hexStr.length);
     var first = '';
     for (let i in hexStr) {
         first += fromSeed.dictGroup[i % 16][hexStr[i]];
@@ -40,7 +44,7 @@ WordsHide.prototype.hexStrToHidden = function (hexStr, password) {
     return hidden.join('');
 }
 WordsHide.prototype.hiddenToHexStr = function (hidden, password) {
-    var fromSeed = new FromSeed(this.defaultSymbols, password, hidden.length);
+    var fromSeed = new FromSeed(this.SYMBOLS, password, hidden.length);
     var unordered = [];
     for (let i in fromSeed.unorder) {
         unordered[i] = hidden[fromSeed.unorder[i]];
@@ -94,23 +98,35 @@ WordsHide.prototype.hideWithCompress = function (str, password = "") {
     var binStr = this.compress(str);
     var hexStr = this.binStrToHexStr(binStr);
     var hidden = this.hexStrToHidden(hexStr, password);
-    return hidden;
+    var SEP = this.SEP_MARK,
+        MARK = this.COMPRESS_MARK;
+    return SEP + MARK + SEP + hidden + SEP;
 }
 WordsHide.prototype.hideWithUtf8 = function (str, password = "") {
     var hexStr = this.strToHexStr(str);
     var hidden = this.hexStrToHidden(hexStr, password);
-    return hidden;
+    var SEP = this.SEP_MARK,
+        MARK = this.UTF8_MARK;
+    return SEP + MARK + SEP + hidden + SEP;
 }
-WordsHide.prototype.unhideWithCompress = function (hidden, password = "") {
-    var hexStr = this.hiddenToHexStr(hidden, password);
-    var binStr = this.hexStrToBinStr(hexStr);
-    var str = this.uncompress(binStr);
-    return str;
-}
-WordsHide.prototype.unhideWithUtf8 = function (hidden, password = "") {
-    var hexStr = this.hiddenToHexStr(hidden, password);
-    var str = this.hexStrToStr(hexStr);
-    return str;
+WordsHide.prototype.unhide = function (hidden, password = "") {
+    var match = hidden.match(this.SYMBOL_REG);
+    if (match === null) {
+        throw TypeError("hidden not found");
+        return;
+    }
+    if (match[1] == this.COMPRESS_MARK) {
+        let hexStr = this.hiddenToHexStr(match[2], password);
+        let binStr = this.hexStrToBinStr(hexStr);
+        let str = this.uncompress(binStr);
+        return str;
+    } else if (match[1] == this.UTF8_MARK) {
+        let hexStr = this.hiddenToHexStr(match[2], password);
+        let str = this.hexStrToStr(hexStr);
+        return str;
+    } else {
+        throw TypeError("unexpected mark");
+    }
 }
 WordsHide.prototype.compress = function (str) {
     return pako.gzip(str, {
@@ -122,6 +138,7 @@ WordsHide.prototype.uncompress = function (binStr) {
         to: 'string'
     });
 }
+
 function FromSeed(symbols, seed, length) {
     this.symbols = symbols;
     this.seed = seed;

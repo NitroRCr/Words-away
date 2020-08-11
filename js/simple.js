@@ -58,7 +58,7 @@ $('.start-mixin').click(function () { //处理
     //隐藏文本
     if ($('#wordshide')[0].checked) {
         let toHide = $('#tohide-text').val();
-        text += '\u202d' + wordsHide.hideWithUtf8(toHide, '') + '\u202d ';
+        text += wordsHide.hideWithUtf8(toHide, '') + ' ';
     }
 
     if ($('#shorten-url')[0].checked) {
@@ -96,15 +96,16 @@ $('.start-mixin').click(function () { //处理
 
 function backMode() {
     var text = $('#back-textin').val();
-    var match = text.match(wordsHide.symbolsReg);
+    var match = text.match(wordsHide.SYMBOL_REG);
     if (match) {
-        var hidden = match[1];
+        var hidden = match[0];
         try {
-            var str = wordsHide.unhideWithUtf8(hidden, '');
+            var str = wordsHide.unhide(hidden, '');
         } catch (e) {
             M.toast({
                 html: "隐藏文本解密失败"
             });
+            console.log(e);
         }
         text = text.replace(match[0], '');
     }
