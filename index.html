@@ -83,11 +83,11 @@
                             <p>增强模式、竖向排列、链接转短链接...</p>
                         </div>
                         <div class="col s12 m6">
-                            <h3>Change Log v0.12</h3>
+                            <h3>Change Log v0.13</h3>
                             <p>
-                                兼容 #话题# 和 @<br>
-                                改进 英文替换 选项<br>
-                                优化 链接检测
+                                新增 隐藏文本功能<br>
+                                新增 还原模式<br>
+                                优化 细节
                             </p>
                         </div>
                     </div>
@@ -118,81 +118,125 @@
                 <div class="container light">
                     <form class="col s12">
                         <h2>Start</h2>
-                        <div class="input-field col s12 text-in">
-                            <textarea id="textin" class="materialize-textarea"></textarea>
-                            <label for="textin">输入文本</label>
-                        </div>
-                        <div class="vertical-options" style="display: none;">
-                            <div class="input-field col s6 inline">
-                                <input id="max-col" type="text" value="12">
-                                <label for="max-col">最大列数</label>
+                        <div class="process-fields">
+                            <div class="input-field col s12 text-in">
+                                <textarea id="textin" class="materialize-textarea"></textarea>
+                                <label for="textin">输入文本</label>
                             </div>
-                            <div class="input-field col s6 inline">
-                                <input id="min-row" type="text" value="5">
-                                <label for="min-row">最小行数</label>
+                            <div class="input-field col s12 text-in tohide-text" style="display: none;">
+                                <textarea id="tohide-text" class="materialize-textarea"></textarea>
+                                <label for="tohide-text">需隐藏的文本</label>
+                            </div>
+                            <div class="vertical-options" style="display: none;">
+                                <div class="input-field col s6 inline">
+                                    <input id="max-col" type="text" value="12">
+                                    <label for="max-col">最大列数</label>
+                                </div>
+                                <div class="input-field col s6 inline">
+                                    <input id="min-row" type="text" value="5">
+                                    <label for="min-row">最小行数</label>
+                                </div>
+                            </div>
+                            <div class="input-field col s12 font-select-field" style="display: none;">
+                                <select class="font-selector">
+                                    <option value="monospace" selected>𝚖𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
+                                    <option value="script">𝓈𝒸𝓇𝒾𝓅𝓉</option>
+                                    <option value="double-struck">𝕕𝕠𝕦𝕓𝕝𝕖-𝕤𝕥𝕣𝕦𝕔𝕜</option>
+                                    <option value="sans-serif">𝗌𝖺𝗇𝗌-𝗌𝖾𝗋𝗂𝖿</option>
+                                    <option value="sans-serif-bold">𝘀𝗮𝗻𝘀-𝘀𝗲𝗿𝗶𝗳-𝗯𝗼𝗹𝗱</option>
+                                    <option value="sans-serif-italic">𝘴𝘢𝘯𝘴-𝘴𝘦𝘳𝘪𝘧-𝘪𝘵𝘢𝘭𝘪𝘤</option>
+                                    <option value="sans-serif-bold-italic">𝙨𝙖𝙣𝙨-𝙨𝙚𝙧𝙞𝙛-𝙗𝙤𝙡𝙙-𝙞𝙩𝙖𝙡𝙞𝙘</option>
+                                    <option value="bold">𝐛𝐨𝐥𝐝</option>
+                                    <option value="italic">𝑖𝑡𝑎𝑙𝑖𝑐</option>
+                                    <option value="bold-italic">𝒃𝒐𝒍𝒅-𝒊𝒕𝒂𝒍𝒊𝒄</option>
+                                    <option value="bold-script">𝓫𝓸𝓵𝓭-𝓼𝓬𝓻𝓲𝓹𝓽</option>
+                                    <option value="fake-normal">fаkе-ոоrmаӏ</option>
+                                </select>
+                                <label>替换字体</label>
                             </div>
                         </div>
-                        <div class="input-field col s12 font-select-field" style="display: none;">
-                            <select class="font-selector">
-                                <option value="monospace" selected>𝚖𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎</option>
-                                <option value="script">𝓈𝒸𝓇𝒾𝓅𝓉</option>
-                                <option value="double-struck">𝕕𝕠𝕦𝕓𝕝𝕖-𝕤𝕥𝕣𝕦𝕔𝕜</option>
-                                <option value="sans-serif">𝗌𝖺𝗇𝗌-𝗌𝖾𝗋𝗂𝖿</option>
-                                <option value="sans-serif-bold">𝘀𝗮𝗻𝘀-𝘀𝗲𝗿𝗶𝗳-𝗯𝗼𝗹𝗱</option>
-                                <option value="sans-serif-italic">𝘴𝘢𝘯𝘴-𝘴𝘦𝘳𝘪𝘧-𝘪𝘵𝘢𝘭𝘪𝘤</option>
-                                <option value="sans-serif-bold-italic">𝙨𝙖𝙣𝙨-𝙨𝙚𝙧𝙞𝙛-𝙗𝙤𝙡𝙙-𝙞𝙩𝙖𝙡𝙞𝙘</option>
-                                <option value="bold">𝐛𝐨𝐥𝐝</option>
-                                <option value="italic">𝑖𝑡𝑎𝑙𝑖𝑐</option>
-                                <option value="bold-italic">𝒃𝒐𝒍𝒅-𝒊𝒕𝒂𝒍𝒊𝒄</option>
-                                <option value="bold-script">𝓫𝓸𝓵𝓭-𝓼𝓬𝓻𝓲𝓹𝓽</option>
-                                <option value="fake-normal">fаkе-ոоrmаӏ</option>
-                            </select>
-                            <label>替换字体</label>
+                        <div class="back-fields" style="display: none;">
+                            <div class="input-field col s12 back-text-in">
+                                <textarea id="back-textin" class="materialize-textarea"></textarea>
+                                <label for="back-textin">输入文本</label>
+                            </div>
                         </div>
                         <div class="input-field col s12 checkboxs">
                             <div class="switch">
-                                <label>
-                                    <input type="checkbox" class="filled-in" checked="checked" id="miss-url" />
-                                    <span>兼容链接</span>
-                                </label><br>
-                                <label>
-                                    <input type="checkbox" class="filled-in" checked="checked" id="coolapk-mode" />
-                                    <span>兼容 [表情] #话题# 和 @</span>
-                                </label><br>
-                                <label>
-                                    <input type="checkbox" class="filled-in" id="zero-width-space" checked="checked" />
-                                    <span>零宽间隔（普通）</span>
-                                </label><br>
-                                <label>
-                                    <input type="checkbox" class="filled-in" id="rows-reverse" />
-                                    <span>每行双重反转（增强）</span>
-                                </label><br>
-                                <label>
-                                    <input type="checkbox" class="filled-in" id="words-reverse" />
-                                    <span>每两字双重反转（增强）</span>
-                                </label><br>
-                                <label>
-                                    <input type="checkbox" class="filled-in" id="shorten-url" />
-                                    <span>链接转短链接（API）</span>
-                                </label><br>
-                                <label>
-                                    <input type="checkbox" class="filled-in" id="vertical-text" />
-                                    <span>转为竖向排列（物理）</span>
-                                </label><br>
-                                <label>
-                                    <input type="checkbox" class="filled-in" id="letters-font" />
-                                    <span>替换英文和数字</span>
-                                </label><br>
+                                <div class="common-cb">
+                                    <label>
+                                        <input type="checkbox" class="filled-in" id="zero-width-space" checked="checked" />
+                                        <span>零宽间隔（普通）</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="filled-in" id="rows-reverse" />
+                                        <span>每行双重反转（增强）</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="filled-in" id="words-reverse" />
+                                        <span>每两字双重反转（增强）</span>
+                                    </label>
+                                </div>
+                                <div class="more-cb" style="display: none;">
+                                    <label class="miss-url">
+                                        <input type="checkbox" class="filled-in" checked="checked" id="miss-url" />
+                                        <span>兼容链接</span>
+                                    </label>
+                                    <label class="coolapk-mode">
+                                        <input type="checkbox" class="filled-in" checked="checked" id="coolapk-mode" />
+                                        <span>兼容 [表情] #话题# 和 @</span>
+                                    </label>
+
+                                    <label class="shorten-url">
+                                        <input type="checkbox" class="filled-in" id="shorten-url" />
+                                        <span>链接转短链接（API）</span>
+                                    </label>
+                                    <label class="vertical-text">
+                                        <input type="checkbox" class="filled-in" id="vertical-text" />
+                                        <span>转为竖向排列（物理）</span>
+                                    </label>
+                                    <label class="letters-font">
+                                        <input type="checkbox" class="filled-in" id="letters-font" />
+                                        <span>替换英文和数字</span>
+                                    </label>
+                                    <label class="wordshide">
+                                        <input type="checkbox" class="filled-in" id="wordshide" />
+                                        <span>隐藏文本</span>
+                                    </label>
+                                    <label class="back-mode">
+                                        <input type="checkbox" class="filled-in" id="back-mode" />
+                                        <span>还原模式</span>
+                                    </label>
+                                </div>
+                                <a href="javascript:;" id="show-more-cb" style="color: #7e57c2; text-decoration: none;">显示更多选项</a>
                             </div>
                             <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">处理</a>
                         </div>
                     </form>
 
                     <div style="height: 100px"></div>
-                    <p style="font-weight: bold">处理结果：</p>
-                    <pre class="result">请先处理<i class="c-shounuehuaji"></i>
+                    <div class="process-result">
+                            <p style="font-weight: bold">处理结果：</p>
+                            <pre class="result">请先处理<i class="c-shounuehuaji"></i>
 </pre>
-                    <button data-clipboard-text="请先处理" class="waves-effect waves-light btn-small to-copy">复制</button>
+                            <button data-clipboard-text="请先处理" class="waves-effect waves-light btn-small to-copy">复制</button>
+                        </div>
+                    <div class="back-result" style="display: none;">
+                        <div class="result-container">
+                            <p style="font-weight: bold">处理结果：</p>
+                            <pre class="result">请先处理<i class="c-shounuehuaji"></i>
+</pre>
+                            <button data-clipboard-text="请先处理" class="waves-effect waves-light btn-small to-copy">复制</button>
+                        </div>
+                        <div class="hide-container" style="display: none;">
+                            <p style="font-weight: bold">隐藏文本：</p>
+                            <pre class="hide-result">请先处理<i class="c-shounuehuaji"></i>
+</pre>
+                            <button data-clipboard-text="请先处理" class="waves-effect waves-light btn-small hide-to-copy">复制</button>
+                        </div>
+                    </div>
+
+
                     <div style="height: 50px"></div>
                 </div>
             </div>
@@ -222,6 +266,15 @@
                     </p>
                     <h3>链接转短链接</h3>
                     <p>使用<a href="https://is.gd">is.gd</a>的API，将文本中的http/https链接替换为短链接，以避开对链接的域名检测</p>
+                    <h3>隐藏文本</h3>
+                    <p>
+                        将隐藏文本编码为Unicode控制符，加入到处理后的文本中。只有还原后可见<br>
+                        完整的隐藏文本功能请使用<a href="https://wordshide.netlify.app/">WordsHide</a>
+                    </p>
+                    <h3>还原模式（试验性）</h3>
+                    <p>
+                        将处理后的文本还原，目前支持零宽间隔、每行双重反转、每两字双重反转和隐藏文本的还原
+                    </p>
                     <h3>转为竖向排列</h3>
                     <p>
                         纯“物理”的处理方法，不使用Unicode控制符，仅把文本转为竖向排列，防检测效果较好<br>
@@ -243,7 +296,6 @@
                         <li>- nhml警告
                             (酷安小编本人说过用Unicode控制符发送严重违规消息直接永封不解)
                         <li>- 某些模式不能共存</li>
-                        <li>- 处理后的文本暂无法直接还原</li>
                     </ul>
                     <h2>关于</h2>
                     WordsAway，一个文本防检测工具，MIT开源<br>
@@ -271,7 +323,9 @@
     <script src="js/jquery-2.0.2.min.js"></script>
     <script src="js/clipboard.min.js"></script>
     <script src="js/Words-away.js"></script>
+    <script src="js/WordsHide.js"></script>
     <script src="js/OneText.js"></script>
+    <script src="js/seedrandom.min.js"></script>
     <script src="js/simple.js"></script>
     <script src="js/index.js"></script>
     <script src="js/materialize.min.js"></script>

@@ -14,14 +14,14 @@
     <div class="container">
         <h1 style="font-weight: bold; font-size: 2em">字符串转Unicode</h1>
         <div class="row">
-            <form class="col s12">
+            <form class="col s12" onsubmit="return false;">
                 <div class="row">
                     <div class="input-field col s12 text-in">
                         <textarea id="textin" class="materialize-textarea"></textarea>
                         <label for="textin">输入文本</label>
                     </div>
                     <div class="input-field col s12 inline filter" style="display: none;">
-                        <input id="filter" type="text" value="\w">
+                        <input id="filter" type="text" value="\w\n\s">
                         <label for="filter">过滤字符</label>
                     </div>
 
