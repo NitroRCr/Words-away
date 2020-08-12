@@ -3,8 +3,13 @@ var wordsHide = new WordsHide();
 
 //输出结果
 function setText(text) {
-    $('pre.result').text(text);
-    $('.to-copy').attr('data-clipboard-text', text);
+    $('.process-result pre.result').text(text);
+    $('.process-result .to-copy').attr('data-clipboard-text', text);
+}
+
+function setBackText(text) {
+    $('.back-result pre.result').text(text);
+    $('.back-result .to-copy').attr('data-clipboard-text', text);
 }
 
 //输出隐藏文本
@@ -75,7 +80,7 @@ $('.start-mixin').click(function () { //处理
                 'url': urls[i],
                 'format': 'json'
             }, (data) => {
-                text = text.replace(urls[i], data['shorturl']);
+                text = text.replace(urls[i], '[' + data['shorturl'] + ']');
                 if (i == urls.length - 1) {
                     setText(text);
                     $(this).removeClass('disabled');
@@ -115,7 +120,7 @@ function backMode() {
         .replace(/(@[\w\u4e00-\u9fa5\u3040-\u30ff]{1,15} ?)/g, marked)
         .replace(/(\[[\w\u4e00-\u9fa5]{1,10}?\])/g, marked);
     text = wordsAway.back(text, true);
-    setText(text);
+    setBackText(text);
     if (str !== undefined) {
         setHideText(str);
         $('div.hide-container').css('display', 'block');
@@ -218,11 +223,16 @@ $('#back-mode').click(function () {
         $('label.back-mode').css('display', 'block');
         $('div.process-fields').css('display', 'none');
         $('div.back-fields').css('display', 'block');
+        $('div.back-result').css('display', 'block');
+        $('div.process-result').css('display', 'none');
     } else {
         $('div.common-cb').css('display', 'block');
         $('div.more-cb > label').css('display', 'block');
         $('div.process-fields').css('display', 'block');
         $('div.back-fields').css('display', 'none');
+        $('div.hide-container').css('display', 'none');
+        $('div.back-result').css('display', 'none');
+        $('div.process-result').css('display', 'block');
     }
 });
 
