@@ -60,6 +60,8 @@ $('.start-mixin').click(function () { //处理
         text;
     //去掉标记
     text = text.replace(/\ue0dc([^\s]+? ?)\ue0dd/g, '$1');
+    
+    text = text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=+]*)?)/g, ' $1 ');
     //隐藏文本
     if ($('#wordshide')[0].checked) {
         let toHide = $('#tohide-text').val();
@@ -80,7 +82,7 @@ $('.start-mixin').click(function () { //处理
                 'url': urls[i],
                 'format': 'json'
             }, (data) => {
-                text = text.replace(urls[i], '[' + data['shorturl'] + ']');
+                text = text.replace(urls[i], data['shorturl']);
                 if (i == urls.length - 1) {
                     setText(text);
                     $(this).removeClass('disabled');
