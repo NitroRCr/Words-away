@@ -1,4 +1,5 @@
 function WordsAway() {}
+
 WordsAway.prototype.mixin = function (text, mixin = '\u200b', missBrackets = true) {
     return this.stringListed(text, missBrackets).join(mixin);
 }
@@ -171,21 +172,14 @@ WordsAway.prototype.styles = {
 }
 WordsAway.prototype.back = function (text, marks) {
     text = text.replace(/[\u200b\u200e]/g, '');
-    var one = text.match(/(?<=\u202e).*?(?=\u202c)/g);
-    var two = text.match(/(?<=\u202e)[^\n\r\u202c]*$/gm);
-    var reversed = [];
-    if (one) {
-        reversed = reversed.concat(one);
+    var reg1 = /\u202e(.*?)\u202c/g;
+    var reg2 = /\u202e([^\n\r\u202c]*)$/gm;
+    let array1, array2;
+    while ((array1 = reg1.exec(text)) !== null) {
+        text = text.replace(array1[1], this.toggleBrackets(this.stringListed(array1[1], marks).reverse().join(''), marks));
     }
-    if (two) {
-        reversed = reversed.concat(two);
+    while ((array2 = reg2.exec(text)) !== null) {
+        text = text.replace(array2[1], this.toggleBrackets(this.stringListed(array2[1], marks).reverse().join(''), marks));
     }
-    if (reversed.length == 0) {
-        return text;
-    }
-    for (let i of reversed) {
-        text = text.replace(i, this.toggleBrackets(this.stringListed(i, marks).reverse().join(''), marks))
-            .replace(/[\u202e\u202c]/g, '');
-    }
-    return text;
+    return text.replace(/[\u202e\u202c]/g, '');;
 }
