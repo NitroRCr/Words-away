@@ -24,7 +24,7 @@ $('.start-mixin').click(function () { //处理
         return;
     }
     var text = $('#textin').val();
-    var mixin = '\u200b';
+    var mixin = '\u2062';
     var missUrl = $('#miss-url')[0].checked,
         coolapkMode = $('#coolapk-mode')[0].checked;
     var marked = '\ue0dc$1\ue0dd';
@@ -38,9 +38,13 @@ $('.start-mixin').click(function () { //处理
         .replace(/(@[\w\u4e00-\u9fa5\u3040-\u30ff]{1,15} ?)/g, marked)
         .replace(/(\[[\w\u4e00-\u9fa5]{1,10}?\])/g, marked) :
         text;
-    //每行双重反转
+    //每行双重反转(U+202e)
     text = ($('#rows-reverse')[0].checked) ?
         wordsAway.rowsReverse(text, true) :
+        text;
+    //每行双重反转(U+2067)
+    text = ($('#rows-reverse-2067')[0].checked) ?
+        ('\u2067' + wordsAway.mixin(text, '\u2067', true)) :
         text;
     //每两字双重反转
     text = ($('#words-reverse')[0].checked) ?
@@ -153,6 +157,15 @@ $('#rows-reverse').click(function () {
     if ($(this)[0].checked) {
         $('#words-reverse')[0].checked = false;
         $('#vertical-text')[0].checked = false;
+        $('#rows-reverse-2067')[0].checked = false;
+    }
+});
+$('#rows-reverse-2067').click(function () {
+    if ($(this)[0].checked) {
+        $('#rows-reverse')[0].checked = false;
+        $('#words-reverse')[0].checked = false;
+        $('#zero-width-space')[0].checked = false;
+        $('#vertical-text')[0].checked = false;
     }
 });
 $('#words-reverse').click(function () {
@@ -160,6 +173,7 @@ $('#words-reverse').click(function () {
         $('#rows-reverse')[0].checked = false;
         $('#zero-width-space')[0].checked = false;
         $('#vertical-text')[0].checked = false;
+        $('#rows-reverse-2067')[0].checked = false;
     }
 });
 $('#zero-width-space').click(function () {
