@@ -44,7 +44,7 @@ $('.start-mixin').click(function () { //处理
         text;
     //每行双重反转(U+2067)
     text = ($('#rows-reverse-2067')[0].checked) ?
-        ('\u2067' + wordsAway.mixin(text, '\u2067', true)) :
+        wordsAway.rowsReverse2067(text, true) :
         text;
     //每两字双重反转
     text = ($('#words-reverse')[0].checked) ?
@@ -179,6 +179,7 @@ $('#words-reverse').click(function () {
 $('#zero-width-space').click(function () {
     if ($(this)[0].checked) {
         $('#words-reverse')[0].checked = false;
+        $('#rows-reverse-2067')[0].checked = false;
         $('#vertical-text')[0].checked = false;
     }
 });

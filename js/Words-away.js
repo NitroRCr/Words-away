@@ -14,6 +14,17 @@ WordsAway.prototype.rowsReverse = function (text, missBrackets = true) {
     }
     return this.toggleBrackets(result, missBrackets);
 }
+WordsAway.prototype.rowsReverse2067 = function (text, missBrackets = true) {
+    var rows = text.split('\n');
+    var result = '';
+    for (let i = 0; i < rows.length; i++) {
+        result += '\u2067' + this.stringListed(rows[i], missBrackets).reverse().join('\u2067');
+        if (i < rows.length - 1) {
+            result += '\n';
+        }
+    }
+    return this.toggleBrackets(result, missBrackets);
+}
 WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
     var rows = text.split('\n');
     var result = '';

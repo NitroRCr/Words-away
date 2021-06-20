@@ -68,3 +68,8 @@ $().ready(function () {
     index.setRandomBg();
     new OneText('.one-text-a', {interval: 30, quote: true, libs: ['official', 'ext']})
 });
+
+if ('serviceWorker' in navigator) {
+    // register service worker
+    navigator.serviceWorker.register('/service-worker.js');
+  }

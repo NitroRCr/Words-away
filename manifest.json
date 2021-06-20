@@ -1,0 +1,20 @@
+{
+    "name": "WordsAway",
+    "short_name": "WordsAway",
+    "theme_color": "#000000",
+    "icons": [
+        {
+            "src": "img/WordsAway_Black.png",
+            "sizes": "100x100",
+            "type": "image/png"
+        },
+        {
+            "src": "img/WordsAway_Black_M.png",
+            "sizes": "209x209",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff"
+}
