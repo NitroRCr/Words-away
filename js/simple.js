@@ -38,6 +38,10 @@ $('.start-mixin').click(function () { //处理
         .replace(/(@[\w\u4e00-\u9fa5\u3040-\u30ff]{1,15} ?)/g, marked)
         .replace(/(\[[\w\u4e00-\u9fa5]{1,10}?\])/g, marked) :
         text;
+    //幼女Code
+    text = ($('#unvcode')[0].checked) ?
+        wordsAway.unvcode(text, true) :
+        text;
     //每行双重反转(U+202e)
     text = ($('#rows-reverse')[0].checked) ?
         wordsAway.rowsReverse(text, true) :
