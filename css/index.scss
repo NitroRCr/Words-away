@@ -71,104 +71,89 @@ h3 {
     margin-top: 0;
 }
 
-.parallax-stage {
+
+.main {
     scroll-behavior: smooth;
-    perspective: 1px;
-    height: 100vh;
-    width: 100%;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
+    position: relative;
+    padding: 0;
 
-    .main {
-        position: relative;
-        transform-style: preserve-3d;
-        padding: 0;
 
-        > .row,
-        .route {
-            position: relative;
-            margin: 0;
-            overflow: hidden;
-            display: block;
 
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-size: cover;
+        background-position: center;
+        transition: background 1s ease;
+        background-image: url(../img/dark-mobile-compressed/port-black.png);
+        filter: brightness(75%);
+
+        @media screen and (orientation: landscape) {
             .container {
-                &.dark {
-                    color: #fff;
-
-                    .head {
-                        color: #fff;
-                    }
-                }
-
-                &.light {
-                }
-
-                font-size: 15px;
+                background-image: url(../img/dark-PC-compressed/land-black.png);
             }
-
-            .bg-container {
-                transform-style: preserve-3d;
-                height: 100%;
-                width: 100%;
-                position: absolute;
-                z-index: -2;
-
-                .background {
-                    position: absolute;
-                    margin: 0;
-                    transition: background 0.8s ease;
-                    transform: translate3d(-2vw, -100vh, -2px) scale(3.1);
-                    transform-origin: top;
-                    width: 100%;
-                    background-size: cover;
-                    background-position: center;
-                    height: calc((100% - 100vh)/3 + 100vh);
-                    transition: background 1s ease;
-                    background-image: url(../img/dark-mobile-compressed/port-black.png);
-
-                    @media screen and (orientation: landscape) {
-                        .container {
-                            background-image: url(../img/dark-PC-compressed/land-black.png);
-                        }
-                    }
-                }
-                
-                .filter {
-                    height: 100%;
-                    width: 100%;
-                    position: absolute;
-                    background-color: rgba(0, 0, 0, 0.25);
-                }
-            }
-
-            &.row1 {
-                min-height: 100vh;
-                .letf-bottom-cornor {
-                    position: absolute;
-                    left: 5px;
-                    bottom: 0.4em;
-                    color: #eee;
-                    font-size: 0.9em;
-                    line-height: 1.3;
-                }
-                h3 {
-                    margin-top: 1rem;
-                    margin-bottom: 0;
-                }
-            }
-
-            &.row3 {}
         }
     }
 
-    div.head {
-        font-weight: bold;
-        font-size: 2em;
-        color: #555;
-        line-height: 1.7;
-        margin: 5px 0;
+    >.row,
+    .route {
+        position: relative;
+        margin: 0;
+        overflow: hidden;
+        display: block;
+
+        .container {
+            &.dark {
+                color: #fff;
+
+                .head {
+                    color: #fff;
+                }
+            }
+
+            font-size: 15px;
+        }
+
+
+        &.row1 {
+            min-height: 100vh;
+
+            .letf-bottom-cornor {
+                position: absolute;
+                left: 5px;
+                bottom: 0.4em;
+                color: #eee;
+                font-size: 0.9em;
+                line-height: 1.3;
+            }
+
+            h3 {
+                margin-top: 1rem;
+                margin-bottom: 0;
+            }
+        }
+
+        &.row2 {
+            background-color: #fff;
+        }
+
+        &.row4 {
+            background-color: #fff;
+        }
     }
 }
+
+div.head {
+    font-weight: bold;
+    font-size: 2em;
+    color: #555;
+    line-height: 1.7;
+    margin: 5px 0;
+}
+
 
 a.n-dark {
     color: white;
@@ -183,7 +168,7 @@ footer {
     height: 8em;
     width: 100%;
 
-    > div {
+    >div {
         margin-top: 2.5em;
         color: #777;
         font-weight: bold;

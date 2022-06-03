@@ -113,7 +113,6 @@ WordsHide.prototype.unhide = function (hidden, password = "") {
     var match = hidden.match(this.SYMBOL_REG);
     if (match === null) {
         throw TypeError("hidden not found");
-        return;
     }
     if (match[1] == this.COMPRESS_MARK) {
         let hexStr = this.hiddenToHexStr(match[2], password);
@@ -201,8 +200,6 @@ FromSeed.prototype.getOrder = function () {
 FromSeed.prototype.getUnorder = function () {
     return invertKeyValues(this.order);
 }
-
-
 
 const invertKeyValues = obj =>
     Object.keys(obj).reduce((acc, key) => {

@@ -15,8 +15,10 @@
 </head>
 
 <body>
-    <div class="parallax-stage">
         <div class="main">
+            <div class="bg-container">
+                <div class="background"></div>
+            </div>
             <div class="row row1">
                 <a href="https://github.com/NitroRCr/Words-away" class="github-corner"
                     aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250"
@@ -63,10 +65,6 @@
                         }
                     }
                 </style>
-                <div class="bg-container">
-                    <div class="background"></div>
-                    <div class="filter"></div>
-                </div>
                 <div class="container dark">
                     <h1 style="font-weight: bold; font-size: 2em">WordsAway</h1>
                     <div style="font-style: italic; font-size: 1.1em; color: #eee">"Keep keywords away."</div>
@@ -88,14 +86,14 @@
                     </div>
                     <div class="row">
                         <div class="col s12 m6">
-                            <h3>更多选项</h3>
-                            <p>增强模式、竖向排列、链接转短链接...</p>
+                            <h3>功能多样</h3>
+                            <p>多种处理方式任你选择，对链接/号码等的兼容应有尽有</p>
                         </div>
                         <div class="col s12 m6">
-                            <h3>公告</h3>
+                            <h3>最近更新 2022-5-29</h3>
                             <p>
-                                已放弃对酷安的支持<br>
-                                （这是迟早的事）
+                                新增功能 将链接替换为平台外链<br>
+                                修复 样式异常
                             </p>
                         </div>
                     </div>
@@ -166,6 +164,15 @@
                                 </select>
                                 <label>替换字体</label>
                             </div>
+                            <div class="input-field col s12 url-mode-select-field" style="display: none;">
+                                <select class="url-mode-selector">
+                                    <option value="coolapk" selected>酷安 - 外链</option>
+                                    <option value="csdn">CSDN - 外链</option>
+                                    <option value="zhihu">知乎 - 外链</option>
+                                    <option value="is.gd">is.gd - 短链接</option>
+                                </select>
+                                <label>链接跳转方式</label>
+                            </div>
                         </div>
                         <div class="back-fields" style="display: none;">
                             <div class="input-field col s12 back-text-in">
@@ -207,10 +214,9 @@
                                         <input type="checkbox" class="filled-in" checked="checked" id="coolapk-mode" />
                                         <span>兼容 [表情] #话题# 和 @</span>
                                     </label>
-
-                                    <label class="shorten-url">
-                                        <input type="checkbox" class="filled-in" id="shorten-url" />
-                                        <span>链接转短链接（API）</span>
+                                    <label class="replace-url">
+                                        <input type="checkbox" class="filled-in" id="replace-url" />
+                                        <span>替换链接</span>
                                     </label>
                                     <label class="vertical-text">
                                         <input type="checkbox" class="filled-in" id="vertical-text" />
@@ -240,7 +246,7 @@
                     <div style="height: 100px"></div>
                     <div class="process-result">
                         <p style="font-weight: bold">处理结果：</p>
-                        <pre class="result">请先处理<i class="c-shounuehuaji"></i>
+                        <pre class="result">请先处理
 </pre>
                         <button data-clipboard-text="请先处理"
                             class="waves-effect waves-light btn-small to-copy">复制</button>
@@ -248,14 +254,14 @@
                     <div class="back-result" style="display: none;">
                         <div class="result-container">
                             <p style="font-weight: bold">处理结果：</p>
-                            <pre class="result">请先处理<i class="c-shounuehuaji"></i>
+                            <pre class="result">请先处理
 </pre>
                             <button data-clipboard-text="请先处理"
                                 class="waves-effect waves-light btn-small to-copy">复制</button>
                         </div>
                         <div class="hide-container" style="display: none;">
                             <p style="font-weight: bold">隐藏文本：</p>
-                            <pre class="hide-result">请先处理<i class="c-shounuehuaji"></i>
+                            <pre class="hide-result">请先处理
 </pre>
                             <button data-clipboard-text="请先处理"
                                 class="waves-effect waves-light btn-small hide-to-copy">复制</button>
@@ -265,10 +271,6 @@
                 </div>
             </div>
             <div class="row row3">
-                <div class="bg-container">
-                    <div class="background"></div>
-                    <div class="filter"></div>
-                </div>
                 <div class="container dark">
                     <h2>使用说明</h2>
                     <p>
@@ -283,8 +285,7 @@
                     <h3>每行双重反转</h3>
                     <p>
                         可视为一种增强模式，会将每行文字反转，然后在每行开头加上一个 强制从右至左符 (<a
-                            href="https://unicode-table.com/cn/202E/">U+202E</a>）可以避开更多的关键词检测<i
-                            class="c-coshuaji"></i><br>
+                            href="https://unicode-table.com/cn/202E/">U+202E</a>）可以避开更多的关键词检测<br>
                         缺陷是当一行文本（即不含换行符）以多行形式显示时，这几行的显示顺序会混乱<br>
                     </p>
                     <h3>每两字双重反转</h3>
@@ -296,14 +297,14 @@
                         在unicode中，有很多字，它们看起来长得很像，但是它们的ord不一样。<br>
                         这样一来，只要把字符串里原本的字……啊，点到为止，再说下去就不好玩了。(<a href="https://github.com/RimoChan/unvcode">unvcode</a>)
                     </p>
-                    <h3>链接转短链接</h3>
-                    <p>使用<a href="https://is.gd">is.gd</a>的API，将文本中的http/https链接替换为短链接，以避开对链接的域名检测</p>
+                    <h3>替换链接</h3>
+                    <p>把链接替换为国内平台的外链或短链接，以避开对链接的域名检测。其中短链接使用<a href="https://is.gd">is.gd</a>的API，在大陆已不可用</p>
                     <h3>隐藏文本</h3>
                     <p>
                         将隐藏文本编码为Unicode控制符，加入到处理后的文本中。只有还原后可见<br>
                         完整的隐藏文本功能请使用<a href="https://wordshide.netlify.app/">WordsHide</a>
                     </p>
-                    <h3>还原模式（试验性）</h3>
+                    <h3>还原模式</h3>
                     <p>
                         将处理后的文本还原，目前支持零宽间隔、每行双重反转、每两字双重反转和隐藏文本的还原
                     </p>
@@ -325,9 +326,6 @@
                         <li>- 禁止用于传播不良信息。使用不当造成不良后果概不负责</li>
                         <li>- 无法避开所有的关键词检测，只能避开机器检测</li>
                         <li>- 请低调使用</li>
-                        <li>- nhml警告
-                            (酷安小编本人说过用Unicode控制符发送严重违规消息直接永封不解)</li>
-                        <li>- 某些模式不能共存</li>
                     </ul>
                     <h2>关于</h2>
                     WordsAway，一个文本防检测工具，MIT开源<br>
@@ -339,7 +337,7 @@
                 <div class="container light">
                     <footer>
                         <div style="text-align: center;">
-                            © 2021 WordsAway<br>
+                            © 2022 WordsAway<br>
                             <div style="height: 3px;"></div>
                             <a href="https://github.com/NitroRCr/Words-away">
                                 <i class="fab fa-github" style="font-size: 1.15em"></i></a>
@@ -352,7 +350,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <script src="js/jquery-2.0.2.min.js"></script>
     <script src="js/clipboard.min.js"></script>
     <script src="js/Words-away.js"></script>

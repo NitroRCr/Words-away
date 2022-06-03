@@ -35,8 +35,8 @@ $('.start-mixin').click(function () { //处理
     //兼容 [表情] #话题# 和 @
     text = (coolapkMode) ?
         text.replace(/(#[\w\u4e00-\u9fa5\u3040-\u30ff]{1,20}?#)/g, marked)
-        .replace(/(@[\w\u4e00-\u9fa5\u3040-\u30ff]{1,15} ?)/g, marked)
-        .replace(/(\[[\w\u4e00-\u9fa5]{1,10}?\])/g, marked) :
+            .replace(/(@[\w\u4e00-\u9fa5\u3040-\u30ff]{1,15} ?)/g, marked)
+            .replace(/(\[[\w\u4e00-\u9fa5]{1,10}?\])/g, marked) :
         text;
     //幼女Code
     text = ($('#unvcode')[0].checked) ?
@@ -69,45 +69,64 @@ $('.start-mixin').click(function () { //处理
     //去掉标记
     text = text.replace(/\ue0dc([^\s]+? ?)\ue0dd/g, '$1');
 
-    text = text.replace(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=+]*)?)/g, ' $1 ');
+    text = text.replace(/[\u2062\u202e\u200e\u202c\u2067]?(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=+]*)?)[\u2062\u202e\u200e\u202c\u2067]?/g, '$1');
     //隐藏文本
     if ($('#wordshide')[0].checked) {
         let toHide = $('#tohide-text').val();
         text += wordsHide.hideWithUtf8(toHide, '') + ' ';
     }
 
-    if ($('#shorten-url')[0].checked) {
-        //链接转短链接（API）
+    if ($('#replace-url')[0].checked) {
+        //替换链接
+        var mode = $('.url-mode-selector').val();
         var urls = text.match(/(http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-.\/?%&=+]*)?)/g);
-        $('pre.result').text('短链接请求中...');
-        if (urls) {
-            $(this).addClass('disabled');
-        } else {
-            setText(text);
-        }
-        for (let i in urls) {
-            $.get('https://is.gd/create.php', {
-                'url': urls[i],
-                'format': 'json'
-            }, (data) => {
-                text = text.replace(urls[i], data['shorturl']);
-                if (i == urls.length - 1) {
+        if (mode == 'is.gd') {
+            $('pre.result').text('短链接请求中...');
+            if (urls) {
+                $(this).addClass('disabled');
+            } else {
+                setText(text);
+            }
+            for (let i in urls) {
+                $.get('https://is.gd/create.php', {
+                    'url': urls[i],
+                    'format': 'json'
+                }, (data) => {
+                    text = text.replace(urls[i], data['shorturl']);
+                    if (i == urls.length - 1) {
+                        setText(text);
+                        $(this).removeClass('disabled');
+                    }
+                }, 'jsonp').fail(() => {
+                    M.toast({
+                        html: '短链接请求失败'
+                    });
                     setText(text);
                     $(this).removeClass('disabled');
-                }
-            }, 'jsonp').fail(() => {
-                M.toast({
-                    html: '短链接请求失败'
                 });
-                setText(text);
-                $(this).removeClass('disabled');
-            });
+            }
+        } else {
+            for (let i of urls) {
+                text = text.replace(i, getExtUrl(i, mode));
+            }
+            setText(text);
         }
     } else {
         setText(text);
     }
 
 });
+
+function getExtUrl(url, mode) {
+    switch (mode) {
+        case 'coolapk':
+            return 'https://coolapk.com/link?url=' + encodeURIComponent(url);
+        case 'csdn':
+            return 'https://link.csdn.net/?target=' + encodeURIComponent(url);
+        case 'zhihu':
+            return 'https://link.zhihu.com/?target=' + encodeURIComponent(url);
+    }
+}
 
 function backMode() {
     var text = $('#back-textin').val();
@@ -214,6 +233,14 @@ $('#letters-font').click(function () {
     }
 })
 
+$('#replace-url').click(function () {
+    if ($(this)[0].checked) {
+        $('.url-mode-select-field').css('display', 'block');
+    } else {
+        $('.url-mode-select-field').css('display', 'none');
+    }
+})
+
 $('.to-copy').click(function () {
     M.toast({
         html: '已复制'
@@ -223,6 +250,7 @@ $('.to-copy').click(function () {
 $().ready(function () {
     new ClipboardJS('.to-copy, .hide-to-copy');
     $('.font-selector').formSelect();
+    $('.url-mode-selector').formSelect();
     $('.switch label').css('display', 'block');
 })
 
